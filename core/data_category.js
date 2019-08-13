@@ -57,12 +57,12 @@ Blockly.DataCategory = function(workspace) {
 
     Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable);
     Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable);
-    Blockly.DataCategory.addShowVariable(xmlList, firstVariable);
-    Blockly.DataCategory.addHideVariable(xmlList, firstVariable);
+    // Blockly.DataCategory.addShowVariable(xmlList, firstVariable);
+    // Blockly.DataCategory.addHideVariable(xmlList, firstVariable);
   }
 
   // Now add list variables to the flyout
-  Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
+  // Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
   variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
   variableModelList.sort(Blockly.VariableModel.compareByName);
   for (var i = 0; i < variableModelList.length; i++) {
@@ -85,8 +85,8 @@ Blockly.DataCategory = function(workspace) {
     Blockly.DataCategory.addLengthOfList(xmlList, firstVariable);
     Blockly.DataCategory.addListContainsItem(xmlList, firstVariable);
     Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addShowList(xmlList, firstVariable);
-    Blockly.DataCategory.addHideList(xmlList, firstVariable);
+    // Blockly.DataCategory.addShowList(xmlList, firstVariable);
+    // Blockly.DataCategory.addHideList(xmlList, firstVariable);
   }
 
   return xmlList;
