@@ -25,7 +25,9 @@ npm ERR! A complete log of this run can be found in:
 目前我使用的开发流程是：
 
 1、 在Linux系统（我使用的是Debian）和Windows 10上同时保持这个项目的最新代码
+
 2、 在Linux上对这个项目开发，然后`npm run build`, 把代码与Windows 10上的保持同步
+
 3、 修改Windows 10上（Linux上不用修改）的项目中`build.py`文件中的
 
 ``` python
