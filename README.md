@@ -1,3 +1,5 @@
+### Windows 10下开发编译不了看[这里](README-zh.md)
+
 # scratch-blocks
 #### Scratch Blocks is a library for building creative computing interfaces.
 [![Build Status](https://travis-ci.org/LLK/scratch-blocks.svg?branch=develop)](https://travis-ci.org/LLK/scratch-blocks)
