@@ -51,4 +51,6 @@ assert stdout == read(os.path.join("build", "test_expect.js"))
 
 4、 把Linux项目目录下的`blockly_compressed_horizontal.js`、`blockly_compressed_vertical.js`、`blockly_uncompressed_horizontal.js`、`blockly_uncompressed_vertical.js`、`blocks_compressed.js`、`blocks_compressed_horizontal.js`和`blocks_compressed_vertical.js`共7个文件拷贝并替换到Windows 10项目目录下。
 
-5、 在Windows 10下`npm run build`
+5、克隆 https://github.com/google/closure-library/ 项目到scratch-blocks同级目录
+
+6、 在Windows 10下`npm run build`
