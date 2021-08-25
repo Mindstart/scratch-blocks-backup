@@ -210,8 +210,7 @@ Blockly.FieldVariable.prototype.setValue = function(id) {
   // Type checks!
   var type = variable.type;
   if (!this.typeIsAllowed_(type)) {
-    throw new Error('Variable type doesn\'t match this field!  Type was ' +
-        type);
+   // throw new Error('Variable type doesn\'t match this field!  Type was ' + type); //by fx
   }
   if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
     var oldValue = this.variable_ ? this.variable_.getId() : null;
@@ -258,7 +257,7 @@ Blockly.FieldVariable.prototype.getVariableTypes_ = function() {
       return workspace.getVariableTypes();
     }
   }
-  variableTypes = variableTypes || [''];
+  variableTypes = variableTypes || [''] ||['str'];
   if (variableTypes.length == 0) {
     // Throw an error if variableTypes is an empty list.
     var name = this.getText();
@@ -318,7 +317,10 @@ Blockly.FieldVariable.dropdownCreate = function() {
     if (this.defaultType_ == Blockly.LIST_VARIABLE_TYPE) {
       var renameText = Blockly.Msg.RENAME_LIST;
       var deleteText = Blockly.Msg.DELETE_LIST;
-    } else {
+    } else if (this.defaultType_ == Blockly.STRING_VARIABLE_TYPE) {
+      var renameText = Blockly.Msg.RENAME_STR_VARIABLE;
+      var deleteText = Blockly.Msg.DELETE_STR_VARIABLE;
+    }else {
       var renameText = Blockly.Msg.RENAME_VARIABLE;
       var deleteText = Blockly.Msg.DELETE_VARIABLE;
     }

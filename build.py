@@ -327,8 +327,17 @@ class Gen_compressed(threading.Thread):
       args = []
       for group in [["google-closure-compiler"], dash_args]:
         args.extend(filter(lambda item: item, group))
-
-      proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+      outfile = open("dash_args.txt","w+")	
+      outfile.write("\n".join(args[11:]))	
+      outfile.close()
+      args = args[:11]
+      args.extend(['--flagfile','dash_args.txt'])
+      #newArgs = [];
+      #for i in args:
+      #  if i.find("node_modules\google-closure-library") != -1:
+      #    i = i.replace("node_modules\google-closure-library", "..\closure-library")
+      #    newArgs.append(i)
+      proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,shell=True)
       (stdout, stderr) = proc.communicate()
 
       # Build the JSON response.
@@ -571,7 +580,7 @@ if __name__ == "__main__":
 
     # Sanity check the local compiler
     test_args = [closure_compiler, os.path.join("build", "test_input.js")]
-    test_proc = subprocess.Popen(test_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+    test_proc = subprocess.Popen(test_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,shell=True)
     (stdout, _) = test_proc.communicate()
     assert stdout == read(os.path.join("build", "test_expect.js"))
 

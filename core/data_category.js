@@ -46,23 +46,37 @@ Blockly.DataCategory = function(workspace) {
   var xmlList = [];
 
   Blockly.DataCategory.addCreateButton(xmlList, workspace, 'VARIABLE');
-
+  console.info("variableModelList.length ",variableModelList.length)
   for (var i = 0; i < variableModelList.length; i++) {
-    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i]);
+    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],0);
   }
 
   if (variableModelList.length > 0) {
     xmlList[xmlList.length - 1].setAttribute('gap', 24);
     var firstVariable = variableModelList[0];
 
-    Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable);
-    Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable);
+    Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable,0);
+    Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable,0);
     // Blockly.DataCategory.addShowVariable(xmlList, firstVariable);
     // Blockly.DataCategory.addHideVariable(xmlList, firstVariable);
   }
 
-  // Now add list variables to the flyout
-  // Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
+  // Now add string variables to the flyout
+  Blockly.DataCategory.addCreateButton(xmlList, workspace, 'STR_VARIABLE');
+  variableModelList = workspace.getVariablesOfType(Blockly.STRING_VARIABLE_TYPE);
+  variableModelList.sort(Blockly.VariableModel.compareByName);
+  console.info("variableModelList.length2= ",variableModelList.length)
+  for (var i = 0; i < variableModelList.length; i++) {
+    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],1);
+  }
+
+  if (variableModelList.length > 0) {
+    xmlList[xmlList.length - 1].setAttribute('gap', 24);
+    var firstVariable = variableModelList[0];
+    Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable,1);
+    Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable,1);
+  }
+
   variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
   variableModelList.sort(Blockly.VariableModel.compareByName);
   for (var i = 0; i < variableModelList.length; i++) {
@@ -97,11 +111,14 @@ Blockly.DataCategory = function(workspace) {
  * @param {!Array.<!Element>} xmlList Array of XML block elements.
  * @param {?Blockly.VariableModel} variable Variable to select in the field.
  */
-Blockly.DataCategory.addDataVariable = function(xmlList, variable) {
+Blockly.DataCategory.addDataVariable = function(xmlList, variable,type) {
   // <block id="variableId" type="data_variable">
   //    <field name="VARIABLE">variablename</field>
   // </block>
-  Blockly.DataCategory.addBlock(xmlList, variable, 'data_variable', 'VARIABLE');
+  if(type == 0)
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_variable', 'VARIABLE');
+  else
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_variable', 'STR_VARIABLE');
   // In the flyout, this ID must match variable ID for monitor syncing reasons
   xmlList[xmlList.length - 1].setAttribute('id', variable.getId());
 };
@@ -111,7 +128,7 @@ Blockly.DataCategory.addDataVariable = function(xmlList, variable) {
  * @param {!Array.<!Element>} xmlList Array of XML block elements.
  * @param {?Blockly.VariableModel} variable Variable to select in the field.
  */
-Blockly.DataCategory.addSetVariableTo = function(xmlList, variable) {
+Blockly.DataCategory.addSetVariableTo = function(xmlList, variable,type) {
   // <block type="data_setvariableto" gap="20">
   //   <value name="VARIABLE">
   //    <shadow type="data_variablemenu"></shadow>
@@ -122,8 +139,11 @@ Blockly.DataCategory.addSetVariableTo = function(xmlList, variable) {
   //     </shadow>
   //   </value>
   // </block>
-  Blockly.DataCategory.addBlock(xmlList, variable, 'data_setvariableto',
-      'VARIABLE', ['VALUE', 'text', 0]);
+  if(type == 0) {
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setvariableto', 'VARIABLE', ['VALUE', 'text', 0]);
+  }else{
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setstrvariableto', 'STR_VARIABLE', ['VALUE', 'text', 'hello']);
+  }
 };
 
 /**
@@ -131,7 +151,7 @@ Blockly.DataCategory.addSetVariableTo = function(xmlList, variable) {
  * @param {!Array.<!Element>} xmlList Array of XML block elements.
  * @param {?Blockly.VariableModel} variable Variable to select in the field.
  */
-Blockly.DataCategory.addChangeVariableBy = function(xmlList, variable) {
+Blockly.DataCategory.addChangeVariableBy = function(xmlList, variable,type) {
   // <block type="data_changevariableby">
   //   <value name="VARIABLE">
   //    <shadow type="data_variablemenu"></shadow>
@@ -142,8 +162,12 @@ Blockly.DataCategory.addChangeVariableBy = function(xmlList, variable) {
   //     </shadow>
   //   </value>
   // </block>
-  Blockly.DataCategory.addBlock(xmlList, variable, 'data_changevariableby',
+  if(type == 0)
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_changevariableby',
       'VARIABLE', ['VALUE', 'math_number', 1]);
+  else
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_changevariableby',
+      'STR_VARIABLE', ['VALUE', 'text', 'hello']);
 };
 
 /**
@@ -389,7 +413,14 @@ Blockly.DataCategory.addCreateButton = function(xmlList, workspace, type) {
   var callback = function(button) {
     Blockly.Variables.createVariable(button.getTargetWorkspace(), null, '');};
 
-  if (type === 'LIST') {
+
+  if (type === 'STR_VARIABLE') {
+    msg = Blockly.Msg.NEW_STR_VARIABLE;
+    callbackKey = 'CREATE_STR_VARIABLE';
+    callback = function (button) {
+      Blockly.Variables.createVariable(button.getTargetWorkspace(), null, Blockly.STRING_VARIABLE_TYPE);
+    };
+  }else if (type === 'LIST') {
     msg = Blockly.Msg.NEW_LIST;
     callbackKey = 'CREATE_LIST';
     callback = function(button) {
@@ -418,6 +449,7 @@ Blockly.DataCategory.addCreateButton = function(xmlList, workspace, type) {
  */
 Blockly.DataCategory.addBlock = function(xmlList, variable, blockType,
     fieldName, opt_value, opt_secondValue) {
+ // Blockly.DataCategory.addBlock(xmlList, variable, 'data_setstrvariableto', 'VARIABLE', ['VALUE', 'text', 'hello']);
   if (Blockly.Blocks[blockType]) {
     var firstValueField;
     var secondValueField;

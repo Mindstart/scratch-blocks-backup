@@ -76,6 +76,29 @@ Blockly.Blocks['data_setvariableto'] = {
     });
   }
 };
+Blockly.Blocks['data_setstrvariableto'] = {
+  /**
+   * Block to set string variable to a certain value
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_SETVARIABLETO,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "STR_VARIABLE"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "extensions": ["colours_data", "shape_statement"]
+    });
+  }
+};
 
 Blockly.Blocks['data_changevariableby'] = {
   /**

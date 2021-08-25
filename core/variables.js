@@ -284,7 +284,11 @@ Blockly.Variables.createVariable = function(workspace, opt_callback, opt_type) {
   } else if (opt_type == Blockly.LIST_VARIABLE_TYPE) {
     newMsg = Blockly.Msg.NEW_LIST_TITLE;
     modalTitle = Blockly.Msg.LIST_MODAL_TITLE;
-  } else {
+  } else if(opt_type == Blockly.STRING_VARIABLE_TYPE) {
+    opt_type = opt_type ? opt_type : '';
+    newMsg = Blockly.Msg.NEW_STR_VARIABLE_TITLE;
+    modalTitle = Blockly.Msg.STR_VARIABLE_MODAL_TITLE;
+  }else {
     // Note: this case covers 1) scalar variables, 2) any new type of
     // variable not explicitly checked for above, and 3) a null or undefined
     // opt_type -- turns a falsey opt_type into ''
@@ -383,9 +387,12 @@ Blockly.Variables.nameValidator_ = function(type, text, workspace, additionalVar
   } else if (type == Blockly.LIST_VARIABLE_TYPE) {
     return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, false, type,
         Blockly.Msg.LIST_ALREADY_EXISTS);
-  } else {
+  } else if (type == Blockly.STRING_VARIABLE_TYPE){
     return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, isCloud, type,
-        Blockly.Msg.VARIABLE_ALREADY_EXISTS);
+      Blockly.Msg.VARIABLE_ALREADY_EXISTS);
+  }else {
+    return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, isCloud, type,
+      Blockly.Msg.VARIABLE_ALREADY_EXISTS);
   }
 };
 
@@ -480,6 +487,10 @@ Blockly.Variables.renameVariable = function(workspace, variable,
   if (varType == Blockly.LIST_VARIABLE_TYPE) {
     promptMsg = Blockly.Msg.RENAME_LIST_TITLE;
     modalTitle = Blockly.Msg.RENAME_LIST_MODAL_TITLE;
+  }else if (varType == Blockly.STRING_VARIABLE_TYPE) {
+    // Default for all other types of variables
+    promptMsg = Blockly.Msg.RENAME_STR_VARIABLE_TITLE;
+    modalTitle = Blockly.Msg.RENAME_STR_VARIABLE_MODAL_TITLE;
   } else {
     // Default for all other types of variables
     promptMsg = Blockly.Msg.RENAME_VARIABLE_TITLE;
@@ -548,7 +559,7 @@ Blockly.Variables.generateVariableFieldXml_ = function(variableModel, opt_name) 
   if (typeString == '') {
     typeString = '\'\'';
   }
-  var fieldName = opt_name || 'VARIABLE';
+  var fieldName = opt_name || 'VARIABLE' || 'STR_VARIABLE';
   var text = '<field name="' + fieldName + '" id="' + variableModel.getId() +
     '" variabletype="' + goog.string.htmlEscape(typeString) +
     '">' + goog.string.htmlEscape(variableModel.name) + '</field>';

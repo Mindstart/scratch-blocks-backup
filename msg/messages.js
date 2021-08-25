@@ -317,16 +317,23 @@ Blockly.Msg.COLOUR_BRIGHTNESS_LABEL = 'Brightness';
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
 Blockly.Msg.CHANGE_VALUE_TITLE = 'Change value:';
 Blockly.Msg.RENAME_VARIABLE = 'Rename variable';
+Blockly.Msg.RENAME_STR_VARIABLE = 'Rename string variable';
 Blockly.Msg.RENAME_VARIABLE_TITLE = 'Rename all "%1" variables to:';
 Blockly.Msg.RENAME_VARIABLE_MODAL_TITLE = 'Rename Variable';
+Blockly.Msg.RENAME_STR_VARIABLE_TITLE = 'Rename all "%1" string variables to:';
+Blockly.Msg.RENAME_STR_VARIABLE_MODAL_TITLE = 'Rename String Variable';
 Blockly.Msg.NEW_VARIABLE = 'Make a Numberic Variable';
+Blockly.Msg.NEW_STR_VARIABLE = 'Make a String Variable';
 Blockly.Msg.NEW_VARIABLE_TITLE = 'New variable name:';
+Blockly.Msg.NEW_STR_VARIABLE_TITLE = 'New string variable name:';
 Blockly.Msg.VARIABLE_MODAL_TITLE = 'New Variable';
+Blockly.Msg.STR_VARIABLE_MODAL_TITLE = 'New String Variable';
 Blockly.Msg.VARIABLE_ALREADY_EXISTS = 'A variable named "%1" already exists.';
 Blockly.Msg.VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE = 'A variable named "%1" already exists for another variable of type "%2".';
 Blockly.Msg.DELETE_VARIABLE_CONFIRMATION = 'Delete %1 uses of the "%2" variable?';
 Blockly.Msg.CANNOT_DELETE_VARIABLE_PROCEDURE = 'Can\'t delete the variable "%1" because it\'s part of the definition of the function "%2"';
 Blockly.Msg.DELETE_VARIABLE = 'Delete the "%1" variable';
+Blockly.Msg.DELETE_STR_VARIABLE = 'Delete the "%1" string variable';
 
 // Custom Procedures
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
