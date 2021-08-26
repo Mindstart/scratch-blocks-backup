@@ -53,6 +53,30 @@ Blockly.Blocks['data_variable'] = {
   }
 };
 
+Blockly.Blocks['data_strvariable'] = {
+  /**
+   * Block of Variables
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "lastDummyAlign0": "CENTRE",
+      "args0": [
+        {
+          "type": "field_variable_getter",
+          "text": "hello",
+          "name": "STR_VARIABLE",
+          "variableType": "str"
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "checkboxInFlyout": true,
+      "extensions": ["contextMenu_getStrVariableBlock", "colours_data", "output_string"]
+    });
+  }
+};
+
 Blockly.Blocks['data_setvariableto'] = {
   /**
    * Block to set variable to a certain value
@@ -580,6 +604,56 @@ Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_VARIABLE_MIXIN = {
 
 Blockly.Extensions.registerMixin('contextMenu_getVariableBlock',
     Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_VARIABLE_MIXIN);
+
+Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN = {
+  /**
+   * Add context menu option to change the selected variable.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    var fieldName = 'STR_VARIABLE';
+    if (this.isCollapsed()) {
+      return;
+    }
+    var currentVarName = this.getField(fieldName).text_;
+    if (!this.isInFlyout) {
+      var variablesList = this.workspace.getVariablesOfType('str');
+      variablesList.sort(function(a, b) {
+        return Blockly.scratchBlocksUtils.compareStrings(a.name, b.name);
+      });
+      for (var i = 0; i < variablesList.length; i++) {
+        var varName = variablesList[i].name;
+        if (varName == currentVarName) continue;
+
+        var option = {enabled: true};
+        option.text = varName;
+
+        option.callback =
+          Blockly.Constants.Data.VARIABLE_OPTION_CALLBACK_FACTORY(this,
+            variablesList[i].getId(), fieldName);
+        options.push(option);
+      }
+    } else {
+      var renameOption = {
+        text: Blockly.Msg.RENAME_STR_VARIABLE,
+        enabled: true,
+        callback: Blockly.Constants.Data.RENAME_OPTION_CALLBACK_FACTORY(this,
+          fieldName)
+      };
+      var deleteOption = {
+        text: Blockly.Msg.DELETE_STR_VARIABLE.replace('%1', currentVarName),
+        enabled: true,
+        callback: Blockly.Constants.Data.DELETE_OPTION_CALLBACK_FACTORY(this,
+          fieldName)
+      };
+      options.push(renameOption);
+      options.push(deleteOption);
+    }
+  }
+};
+Blockly.Extensions.registerMixin('contextMenu_getStrVariableBlock',
+  Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN);
 
 /**
  * Mixin to add a context menu for a data_listcontents block.  It adds one item for

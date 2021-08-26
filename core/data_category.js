@@ -74,7 +74,7 @@ Blockly.DataCategory = function(workspace) {
     xmlList[xmlList.length - 1].setAttribute('gap', 24);
     var firstVariable = variableModelList[0];
     Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable,1);
-    Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable,1);
+    //Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable,1);
   }
 
   variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
@@ -118,7 +118,7 @@ Blockly.DataCategory.addDataVariable = function(xmlList, variable,type) {
   if(type == 0)
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_variable', 'VARIABLE');
   else
-    Blockly.DataCategory.addBlock(xmlList, variable, 'data_variable', 'STR_VARIABLE');
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_strvariable', 'STR_VARIABLE');
   // In the flyout, this ID must match variable ID for monitor syncing reasons
   xmlList[xmlList.length - 1].setAttribute('id', variable.getId());
 };
