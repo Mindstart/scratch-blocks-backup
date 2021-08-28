@@ -477,6 +477,41 @@ Blockly.Blocks['operator_round'] = {
   }
 };
 
+Blockly.Blocks['operator_map'] = {
+  /**
+   * Block for mapping a number to range.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_MAP,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "NUM1"
+        },
+        {
+          "type": "input_value",
+          "name": "NUM2"
+        },
+        {
+          "type": "input_value",
+          "name": "NUM3"
+        },
+        {
+          "type": "input_value",
+          "name": "NUM4"
+        },
+        {
+          "type": "input_value",
+          "name": "NUM5"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_number"]
+    });
+  }
+};
 Blockly.Blocks['operator_mathop'] = {
   /**
    * Block for "advanced" math ops on a number.
