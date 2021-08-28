@@ -77,6 +77,34 @@ Blockly.Blocks['data_strvariable'] = {
   }
 };
 
+Blockly.Blocks['data_booleanvariable'] = {
+  /**
+   * Block of Variables
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "lastDummyAlign0": "CENTRE",
+      "args0": [
+        {
+          "type": "field_variable_getter",
+          "text": "true",
+          "name": "BOOLEAN_VARIABLE",
+          "variableType": "boolean"
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "checkboxInFlyout": true,
+      "colour": Blockly.Colours.data_booleans.primary,
+      "colourSecondary": Blockly.Colours.data_booleans.secondary,
+      "colourTertiary": Blockly.Colours.data_booleans.tertiary,
+      "extensions": ["contextMenu_getBooleanVariableBlock", "output_string"]
+    });
+  }
+};
+
+
 Blockly.Blocks['data_setvariableto'] = {
   /**
    * Block to set variable to a certain value
@@ -124,6 +152,39 @@ Blockly.Blocks['data_setstrvariableto'] = {
   }
 };
 
+Blockly.Blocks['data_setbooleanvariableto'] = {
+  /**
+   * Block to set string variable to a certain value
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_SETVARIABLETO,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "BOOLEAN_VARIABLE"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "VALUE",
+           "value": "false",
+          "options": [
+            // ["1", "1"],
+            [Blockly.Msg.DATA_INDEX_TRUE, "true"],
+            [Blockly.Msg.DATA_INDEX_FALSE, "false"]
+          ]
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_booleans.primary,
+      "colourSecondary": Blockly.Colours.data_booleans.secondary,
+      "colourTertiary": Blockly.Colours.data_booleans.tertiary,
+      "extensions": ["shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['data_changevariableby'] = {
   /**
    * Block to change variable by a certain value
@@ -144,6 +205,29 @@ Blockly.Blocks['data_changevariableby'] = {
       ],
       "category": Blockly.Categories.data,
       "extensions": ["colours_data", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['data_togglevariableby'] = {
+  /**
+   * Block to change variable by a certain value
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_TOGGLEVARIABLEBY,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "BOOLEAN_VARIABLE"
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_booleans.primary,
+      "colourSecondary": Blockly.Colours.data_booleans.secondary,
+      "colourTertiary": Blockly.Colours.data_booleans.tertiary,
+      "extensions": [ "shape_statement"]
     });
   }
 };
@@ -654,6 +738,51 @@ Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN = {
 };
 Blockly.Extensions.registerMixin('contextMenu_getStrVariableBlock',
   Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN);
+
+Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_BOOLEANVARIABLE_MIXIN = {
+customContextMenu: function(options) {
+  var fieldName = 'BOOLEAN_VARIABLE';
+  if (this.isCollapsed()) {
+    return;
+  }
+  var currentVarName = this.getField(fieldName).text_;
+  if (!this.isInFlyout) {
+    var variablesList = this.workspace.getVariablesOfType('boolean');
+    variablesList.sort(function(a, b) {
+      return Blockly.scratchBlocksUtils.compareStrings(a.name, b.name);
+    });
+    for (var i = 0; i < variablesList.length; i++) {
+      var varName = variablesList[i].name;
+      if (varName == currentVarName) continue;
+
+      var option = {enabled: true};
+      option.text = varName;
+
+      option.callback =
+        Blockly.Constants.Data.VARIABLE_OPTION_CALLBACK_FACTORY(this,
+          variablesList[i].getId(), fieldName);
+      options.push(option);
+    }
+  } else {
+    var renameOption = {
+      text: Blockly.Msg.RENAME_BOOLEAN_VARIABLE,
+      enabled: true,
+      callback: Blockly.Constants.Data.RENAME_OPTION_CALLBACK_FACTORY(this,
+        fieldName)
+    };
+    var deleteOption = {
+      text: Blockly.Msg.DELETE_BOOLEAN_VARIABLE.replace('%1', currentVarName),
+      enabled: true,
+      callback: Blockly.Constants.Data.DELETE_OPTION_CALLBACK_FACTORY(this,
+        fieldName)
+    };
+    options.push(renameOption);
+    options.push(deleteOption);
+  }
+}
+};
+Blockly.Extensions.registerMixin('contextMenu_getBooleanVariableBlock',
+  Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_BOOLEANVARIABLE_MIXIN);
 
 /**
  * Mixin to add a context menu for a data_listcontents block.  It adds one item for

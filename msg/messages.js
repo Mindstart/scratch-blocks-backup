@@ -59,6 +59,7 @@ Blockly.Msg.CONTROL_ALLATONCE = 'all at once';
 // Data blocks
 Blockly.Msg.DATA_SETVARIABLETO = 'set %1 to %2';
 Blockly.Msg.DATA_CHANGEVARIABLEBY = 'change %1 by %2';
+Blockly.Msg.DATA_TOGGLEVARIABLEBY = 'toggle %1 ';
 Blockly.Msg.DATA_SHOWVARIABLE = 'show variable %1';
 Blockly.Msg.DATA_HIDEVARIABLE = 'hide variable %1';
 Blockly.Msg.DATA_ADDTOLIST = 'add %1 to %2';
@@ -74,6 +75,8 @@ Blockly.Msg.DATA_SHOWLIST = 'show list %1';
 Blockly.Msg.DATA_HIDELIST = 'hide list %1';
 Blockly.Msg.DATA_INDEX_ALL = 'all';
 Blockly.Msg.DATA_INDEX_LAST = 'last';
+Blockly.Msg.DATA_INDEX_TRUE = "true";
+Blockly.Msg.DATA_INDEX_FALSE = "false";
 Blockly.Msg.DATA_INDEX_RANDOM = 'random';
 
 // Event blocks
@@ -318,23 +321,29 @@ Blockly.Msg.COLOUR_BRIGHTNESS_LABEL = 'Brightness';
 Blockly.Msg.CHANGE_VALUE_TITLE = 'Change value:';
 Blockly.Msg.RENAME_VARIABLE = 'Rename variable';
 Blockly.Msg.RENAME_STR_VARIABLE = 'Rename string variable';
+Blockly.Msg.RENAME_BOOLEAN_VARIABLE = 'Rename boolean variable';
 Blockly.Msg.RENAME_VARIABLE_TITLE = 'Rename all "%1" variables to:';
 Blockly.Msg.RENAME_VARIABLE_MODAL_TITLE = 'Rename Variable';
 Blockly.Msg.RENAME_STR_VARIABLE_TITLE = 'Rename all "%1" string variables to:';
 Blockly.Msg.RENAME_STR_VARIABLE_MODAL_TITLE = 'Rename String Variable';
+Blockly.Msg.RENAME_BOOLEAN_VARIABLE_TITLE = 'Rename all "%1" boolean variables to:';
+Blockly.Msg.RENAME_BOOLEAN_VARIABLE_MODAL_TITLE = 'Rename Boolean Variable';
 Blockly.Msg.NEW_VARIABLE = 'Make a Numberic Variable';
 Blockly.Msg.NEW_STR_VARIABLE = 'Make a String Variable';
+Blockly.Msg.NEW_BOOLEAN_VARIABLE = 'Make a Boolean Variable';
 Blockly.Msg.NEW_VARIABLE_TITLE = 'New variable name:';
 Blockly.Msg.NEW_STR_VARIABLE_TITLE = 'New string variable name:';
+Blockly.Msg.NEW_BOOLEAN_VARIABLE_TITLE = 'New boolean variable name:';
 Blockly.Msg.VARIABLE_MODAL_TITLE = 'New Variable';
 Blockly.Msg.STR_VARIABLE_MODAL_TITLE = 'New String Variable';
+Blockly.Msg.BOOLEAN_VARIABLE_MODAL_TITLE = 'New Boolean Variable';
 Blockly.Msg.VARIABLE_ALREADY_EXISTS = 'A variable named "%1" already exists.';
 Blockly.Msg.VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE = 'A variable named "%1" already exists for another variable of type "%2".';
 Blockly.Msg.DELETE_VARIABLE_CONFIRMATION = 'Delete %1 uses of the "%2" variable?';
 Blockly.Msg.CANNOT_DELETE_VARIABLE_PROCEDURE = 'Can\'t delete the variable "%1" because it\'s part of the definition of the function "%2"';
 Blockly.Msg.DELETE_VARIABLE = 'Delete the "%1" variable';
 Blockly.Msg.DELETE_STR_VARIABLE = 'Delete the "%1" string variable';
-
+Blockly.Msg.DELETE_BOOLEAN_VARIABLE = 'Delete the "%1" boolean variable';
 // Custom Procedures
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
 Blockly.Msg.NEW_PROCEDURE = 'Make a Block';

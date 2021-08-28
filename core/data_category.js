@@ -77,6 +77,22 @@ Blockly.DataCategory = function(workspace) {
     //Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable,1);
   }
 
+  // Now add boolean variables to the flyout
+  Blockly.DataCategory.addCreateButton(xmlList, workspace, 'BOOLEAN_VARIABLE');
+  variableModelList = workspace.getVariablesOfType(Blockly.BOOLEAN_VARIABLE_TYPE);
+  variableModelList.sort(Blockly.VariableModel.compareByName);
+  console.info("variableModelList.length3= ",variableModelList.length)
+  for (var i = 0; i < variableModelList.length; i++) {
+    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],2);
+  }
+
+  if (variableModelList.length > 0) {
+    xmlList[xmlList.length - 1].setAttribute('gap', 24);
+    var firstVariable = variableModelList[0];
+    Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable,2);
+    Blockly.DataCategory.addToggleVariableBy(xmlList, firstVariable,2);
+  }
+
   variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
   variableModelList.sort(Blockly.VariableModel.compareByName);
   for (var i = 0; i < variableModelList.length; i++) {
@@ -117,8 +133,10 @@ Blockly.DataCategory.addDataVariable = function(xmlList, variable,type) {
   // </block>
   if(type == 0)
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_variable', 'VARIABLE');
-  else
+  else if(type == 1)
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_strvariable', 'STR_VARIABLE');
+  else if(type == 2)
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_booleanvariable', 'BOOLEAN_VARIABLE');
   // In the flyout, this ID must match variable ID for monitor syncing reasons
   xmlList[xmlList.length - 1].setAttribute('id', variable.getId());
 };
@@ -141,8 +159,10 @@ Blockly.DataCategory.addSetVariableTo = function(xmlList, variable,type) {
   // </block>
   if(type == 0) {
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_setvariableto', 'VARIABLE', ['VALUE', 'text', 0]);
-  }else{
+  }else if(type == 1){
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_setstrvariableto', 'STR_VARIABLE', ['VALUE', 'text', 'hello']);
+  }else if(type == 2){
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setbooleanvariableto', 'BOOLEAN_VARIABLE', ['VALUE', 'text', 'true']);
   }
 };
 
@@ -169,7 +189,11 @@ Blockly.DataCategory.addChangeVariableBy = function(xmlList, variable,type) {
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_changevariableby',
       'STR_VARIABLE', ['VALUE', 'text', 'hello']);
 };
+Blockly.DataCategory.addToggleVariableBy = function(xmlList, variable,type) {
 
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_togglevariableby',
+      'BOOLEAN_VARIABLE');
+};
 /**
  * Construct and add a data_showVariable block to xmlList.
  * @param {!Array.<!Element>} xmlList Array of XML block elements.
@@ -419,6 +443,12 @@ Blockly.DataCategory.addCreateButton = function(xmlList, workspace, type) {
     callbackKey = 'CREATE_STR_VARIABLE';
     callback = function (button) {
       Blockly.Variables.createVariable(button.getTargetWorkspace(), null, Blockly.STRING_VARIABLE_TYPE);
+    };
+  }else if (type === 'BOOLEAN_VARIABLE') {
+    msg = Blockly.Msg.NEW_BOOLEAN_VARIABLE;
+    callbackKey = 'CREATE_BOOLEAN_VARIABLE';
+    callback = function (button) {
+      Blockly.Variables.createVariable(button.getTargetWorkspace(), null, Blockly.BOOLEAN_VARIABLE_TYPE);
     };
   }else if (type === 'LIST') {
     msg = Blockly.Msg.NEW_LIST;

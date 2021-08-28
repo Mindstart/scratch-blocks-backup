@@ -215,6 +215,7 @@ Blockly.Generator.prototype.valueToCode = function(block, name, outerOrder) {
     goog.asserts.fail('Expecting valid order from block "%s".', block.type);
   }
   var targetBlock = block.getInputTargetBlock(name);
+
   if (!targetBlock) {
     return '';
   }
