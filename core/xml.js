@@ -837,7 +837,7 @@ Blockly.Xml.domToBlockHeadless_ = function(xmlBlock, workspace) {
  * @private
  */
 Blockly.Xml.domToFieldVariable_ = function(workspace, xml, text, field) {
-  var type = xml.getAttribute('variabletype') || '';
+  var type = xml.getAttribute('variabletype') || '' || 'boolean' || 'str';
   // TODO (fenichel): Does this need to be explicit or not?
   if (type == '\'\'') {
     type = '';
@@ -855,7 +855,7 @@ Blockly.Xml.domToFieldVariable_ = function(workspace, xml, text, field) {
     variable = Blockly.Variables.getOrCreateVariablePackage(workspace, xml.id,
         text, type);
   }
-
+  console.info("type=",type,'variable.type=',variable.type)
   // This should never happen :)
   // if (type != null && type !== variable.type) {
   //   throw Error('Serialized variable type with id \'' +
