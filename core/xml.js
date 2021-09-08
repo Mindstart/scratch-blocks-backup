@@ -857,12 +857,12 @@ Blockly.Xml.domToFieldVariable_ = function(workspace, xml, text, field) {
   }
 
   // This should never happen :)
-  if (type != null && type !== variable.type) {
-    throw Error('Serialized variable type with id \'' +
-      variable.getId() + '\' had type ' + variable.type + ', and ' +
-      'does not match variable field that references it: ' +
-      Blockly.Xml.domToText(xml) + '.');
-  }
+  // if (type != null && type !== variable.type) {
+  //   throw Error('Serialized variable type with id \'' +
+  //     variable.getId() + '\' had type ' + variable.type + ', and ' +
+  //     'does not match variable field that references it: ' +
+  //     Blockly.Xml.domToText(xml) + '.');
+  // }
 
   field.setValue(variable.getId());
 };
