@@ -162,7 +162,7 @@ Blockly.DataCategory.addSetVariableTo = function(xmlList, variable,type) {
   }else if(type == 1){
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_setstrvariableto', 'STR_VARIABLE', ['VALUE', 'text', 'hello']);
   }else if(type == 2){
-    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setbooleanvariableto', 'BOOLEAN_VARIABLE', ['VALUE', 'text', 'true']);
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setbooleanvariableto', 'BOOLEAN_VARIABLE');
   }
 };
 

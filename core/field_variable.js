@@ -264,7 +264,7 @@ Blockly.FieldVariable.prototype.getVariableTypes_ = function() {
       return workspace.getVariableTypes();
     }
   }
-  variableTypes = variableTypes || [''] ||['str'];
+  variableTypes = variableTypes || [''] || ['str'] || ['boolean'];
   if (variableTypes.length == 0) {
     // Throw an error if variableTypes is an empty list.
     var name = this.getText();

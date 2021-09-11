@@ -28,6 +28,7 @@
 goog.provide('Blockly.FlyoutExtensionCategoryHeader');
 
 goog.require('Blockly.FlyoutButton');
+//let SerialPort = require('../../scratch-vm/src/io/comport');
 
 /**
  * Class for a category header in the flyout for Scratch extensions which can
@@ -128,7 +129,13 @@ Blockly.FlyoutExtensionCategoryHeader.prototype.refreshStatus = function() {
   }
   if (status == Blockly.StatusButtonState.NOT_READY) {
     this.setImageSrc(basePath + 'status-not-ready.svg');
+  } else {
+    this.setImageSrc(basePath + 'status-ready.svg');
   }
+  // if(SerialPort.getInstance(null,null).isConnected())
+  //   this.setImageSrc(basePath + 'status-ready.svg');
+  // else
+  //   this.setImageSrc(basePath + 'status-not-ready.svg');
 };
 
 /**
