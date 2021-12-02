@@ -52,10 +52,10 @@ goog.require('goog.userAgent');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldTextInput = function(text, opt_validator, opt_restrictor) {
-  Blockly.FieldTextInput.superClass_.constructor.call(this, text,
-      opt_validator);
-  this.setRestrictor(opt_restrictor);
+Blockly.FieldTextInput = function (text, opt_validator, opt_restrictor) {
+  var restrictor = this.getRestrictor();
+  Blockly.FieldTextInput.superClass_.constructor.call(this, text, opt_validator);
+  this.setRestrictor(restrictor);
   this.addArgType('text');
 };
 goog.inherits(Blockly.FieldTextInput, Blockly.Field);
@@ -69,13 +69,20 @@ goog.inherits(Blockly.FieldTextInput, Blockly.Field);
  * @package
  * @nocollapse
  */
-Blockly.FieldTextInput.fromJson = function(options) {
+Blockly.FieldTextInput.fromJson = function (options) {
   var text = Blockly.utils.replaceMessageReferences(options['text']);
   var field = new Blockly.FieldTextInput(text, options['class']);
   if (typeof options['spellcheck'] === 'boolean') {
     field.setSpellcheck(options['spellcheck']);
   }
   return field;
+};
+
+Blockly.FieldTextInput.prototype.getRestrictor = function () {
+
+  var pattern = '[\\S]';
+ // console.info('enter FieldTextInput');
+  return new RegExp(pattern);
 };
 
 /**
@@ -110,7 +117,7 @@ Blockly.FieldTextInput.prototype.spellcheck_ = true;
 /**
  * Install this text field on a block.
  */
-Blockly.FieldTextInput.prototype.init = function() {
+Blockly.FieldTextInput.prototype.init = function () {
   if (this.fieldGroup_) {
     // Field has already been initialized once.
     return;
@@ -127,13 +134,13 @@ Blockly.FieldTextInput.prototype.init = function() {
   // If not in a shadow block, draw a box.
   if (notInShadow) {
     this.box_ = Blockly.utils.createSvgElement('rect',
-        {
-          'x': 0,
-          'y': 0,
-          'width': this.size_.width,
-          'height': this.size_.height,
-          'fill': this.sourceBlock_.getColourTertiary()
-        }
+      {
+        'x': 0,
+        'y': 0,
+        'width': this.size_.width,
+        'height': this.size_.height,
+        'fill': this.sourceBlock_.getColourTertiary()
+      }
     );
     this.fieldGroup_.insertBefore(this.box_, this.textElement_);
   }
@@ -142,7 +149,7 @@ Blockly.FieldTextInput.prototype.init = function() {
 /**
  * Close the input widget if this input is being deleted.
  */
-Blockly.FieldTextInput.prototype.dispose = function() {
+Blockly.FieldTextInput.prototype.dispose = function () {
   Blockly.WidgetDiv.hideIfOwner(this);
   Blockly.FieldTextInput.superClass_.dispose.call(this);
 };
@@ -152,7 +159,7 @@ Blockly.FieldTextInput.prototype.dispose = function() {
  * @param {?string} newValue New value.
  * @override
  */
-Blockly.FieldTextInput.prototype.setValue = function(newValue) {
+Blockly.FieldTextInput.prototype.setValue = function (newValue) {
   if (newValue === null) {
     return;  // No change if null.
   }
@@ -171,7 +178,7 @@ Blockly.FieldTextInput.prototype.setValue = function(newValue) {
  * Set the text in this field and fire a change event.
  * @param {*} newText New text.
  */
-Blockly.FieldTextInput.prototype.setText = function(newText) {
+Blockly.FieldTextInput.prototype.setText = function (newText) {
   if (newText === null) {
     // No change if null.
     return;
@@ -181,9 +188,15 @@ Blockly.FieldTextInput.prototype.setText = function(newText) {
     // No change.
     return;
   }
+  //console.info('enter setText=', newText);
+  let firstChar = newText[0] === '"' ? '' : '"';
+  let lastChar = newText[newText.length - 1] === '"' ? '' : '"';
+  let text = newText[0] === '"' ? newText.substring(0, this.maxInputLength + 1) + '"' : newText.substring(0, this.maxInputLength);
+  newText = firstChar + text + lastChar;
+  //console.info('enter setText1=', newText);
   if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
     Blockly.Events.fire(new Blockly.Events.BlockChange(
-        this.sourceBlock_, 'field', this.name, this.text_, newText));
+      this.sourceBlock_, 'field', this.name, this.text_, newText));
   }
   Blockly.Field.prototype.setText.call(this, newText);
 };
@@ -192,7 +205,7 @@ Blockly.FieldTextInput.prototype.setText = function(newText) {
  * Set whether this field is spellchecked by the browser.
  * @param {boolean} check True if checked.
  */
-Blockly.FieldTextInput.prototype.setSpellcheck = function(check) {
+Blockly.FieldTextInput.prototype.setSpellcheck = function (check) {
   this.spellcheck_ = check;
 };
 
@@ -201,7 +214,7 @@ Blockly.FieldTextInput.prototype.setSpellcheck = function(check) {
  * Text that doesn't match the restrictor will never show in the text field.
  * @param {?RegExp} restrictor Regular expression to restrict text.
  */
-Blockly.FieldTextInput.prototype.setRestrictor = function(restrictor) {
+Blockly.FieldTextInput.prototype.setRestrictor = function (restrictor) {
   this.restrictor_ = restrictor;
 };
 
@@ -215,20 +228,20 @@ Blockly.FieldTextInput.prototype.setRestrictor = function(restrictor) {
  * @param {Function=} opt_arrowCallback Callback for when drop-down arrow clicked.
  * @private
  */
-Blockly.FieldTextInput.prototype.showEditor_ = function(
-    opt_quietInput, opt_readOnly, opt_withArrow, opt_arrowCallback) {
+Blockly.FieldTextInput.prototype.showEditor_ = function (
+  opt_quietInput, opt_readOnly, opt_withArrow, opt_arrowCallback) {
   this.workspace_ = this.sourceBlock_.workspace;
   var quietInput = opt_quietInput || false;
   var readOnly = opt_readOnly || false;
   Blockly.WidgetDiv.show(this, this.sourceBlock_.RTL,
-      this.widgetDispose_(), this.widgetDisposeAnimationFinished_(),
-      Blockly.FieldTextInput.ANIMATION_TIME);
+    this.widgetDispose_(), this.widgetDisposeAnimationFinished_(),
+    Blockly.FieldTextInput.ANIMATION_TIME);
   var div = Blockly.WidgetDiv.DIV;
   // Apply text-input-specific fixed CSS
   div.className += ' fieldTextInput';
   // Create the input.
   var htmlInput =
-      goog.dom.createDom(goog.dom.TagName.INPUT, 'blocklyHtmlInput');
+    goog.dom.createDom(goog.dom.TagName.INPUT, 'blocklyHtmlInput');
   htmlInput.setAttribute('spellcheck', this.spellcheck_);
   if (readOnly) {
     htmlInput.setAttribute('readonly', 'true');
@@ -246,9 +259,9 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(
     }
     // Create the arrow.
     var dropDownArrow =
-        goog.dom.createDom(goog.dom.TagName.IMG, 'blocklyTextDropDownArrow');
+      goog.dom.createDom(goog.dom.TagName.IMG, 'blocklyTextDropDownArrow');
     dropDownArrow.setAttribute('src',
-        Blockly.mainWorkspace.options.pathToMedia + 'dropdown-arrow-dark.svg');
+      Blockly.mainWorkspace.options.pathToMedia + 'dropdown-arrow-dark.svg');
     dropDownArrow.style.width = this.arrowSize_ + 'px';
     dropDownArrow.style.height = this.arrowSize_ + 'px';
     dropDownArrow.style.top = this.arrowY_ + 'px';
@@ -262,7 +275,7 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(
     }
     if (opt_arrowCallback) {
       htmlInput.dropDownArrowMouseWrapper_ = Blockly.bindEvent_(dropDownArrow,
-          'mousedown', this, opt_arrowCallback);
+        'mousedown', this, opt_arrowCallback);
     }
     div.appendChild(dropDownArrow);
   }
@@ -295,6 +308,7 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(
   div.style.boxShadow = '0px 0px 0px 4px ' + Blockly.Colours.fieldShadow;
 };
 
+
 /**
  * Bind handlers for user input on this field and size changes on the workspace.
  * @param {!HTMLInputElement} htmlInput The htmlInput created in showEditor, to
@@ -303,33 +317,33 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(
  *     keyboard editing without focusing the field.
  * @private
  */
-Blockly.FieldTextInput.prototype.bindEvents_ = function(
-    htmlInput, bindGlobalKeypress) {
+Blockly.FieldTextInput.prototype.bindEvents_ = function (
+  htmlInput, bindGlobalKeypress) {
   // Bind to keydown -- trap Enter without IME and Esc to hide.
   htmlInput.onKeyDownWrapper_ =
-      Blockly.bindEventWithChecks_(htmlInput, 'keydown', this,
-          this.onHtmlInputKeyDown_);
+    Blockly.bindEventWithChecks_(htmlInput, 'keydown', this,
+      this.onHtmlInputKeyDown_);
   // Bind to keyup -- trap Enter; resize after every keystroke.
   htmlInput.onKeyUpWrapper_ =
-      Blockly.bindEventWithChecks_(htmlInput, 'keyup', this,
-          this.onHtmlInputChange_);
+    Blockly.bindEventWithChecks_(htmlInput, 'keyup', this,
+      this.onHtmlInputChange_);
   // Bind to keyPress -- repeatedly resize when holding down a key.
   htmlInput.onKeyPressWrapper_ =
-      Blockly.bindEventWithChecks_(htmlInput, 'keypress', this,
-          this.onHtmlInputChange_);
+    Blockly.bindEventWithChecks_(htmlInput, 'keypress', this,
+      this.onHtmlInputChange_);
   // For modern browsers (IE 9+, Chrome, Firefox, etc.) that support the
   // DOM input event, also trigger onHtmlInputChange_ then. The input event
   // is triggered on keypress but after the value of the text input
   // has updated, allowing us to resize the block at that time.
   htmlInput.onInputWrapper_ =
-      Blockly.bindEvent_(htmlInput, 'input', this, this.onHtmlInputChange_);
+    Blockly.bindEvent_(htmlInput, 'input', this, this.onHtmlInputChange_);
   htmlInput.onWorkspaceChangeWrapper_ = this.resizeEditor_.bind(this);
   this.workspace_.addChangeListener(htmlInput.onWorkspaceChangeWrapper_);
 
   if (bindGlobalKeypress) {
     htmlInput.onDocumentKeyDownWrapper_ =
       Blockly.bindEventWithChecks_(document, 'keydown', this,
-          this.onDocumentKeyDown_);
+        this.onDocumentKeyDown_);
   }
 };
 
@@ -338,13 +352,13 @@ Blockly.FieldTextInput.prototype.bindEvents_ = function(
  * @param {!HTMLInputElement} htmlInput The html for this text input.
  * @private
  */
-Blockly.FieldTextInput.prototype.unbindEvents_ = function(htmlInput) {
+Blockly.FieldTextInput.prototype.unbindEvents_ = function (htmlInput) {
   Blockly.unbindEvent_(htmlInput.onKeyDownWrapper_);
   Blockly.unbindEvent_(htmlInput.onKeyUpWrapper_);
   Blockly.unbindEvent_(htmlInput.onKeyPressWrapper_);
   Blockly.unbindEvent_(htmlInput.onInputWrapper_);
   this.workspace_.removeChangeListener(
-      htmlInput.onWorkspaceChangeWrapper_);
+    htmlInput.onWorkspaceChangeWrapper_);
 
   // Remove document handler only if it was added (e.g. in quiet mode)
   if (htmlInput.onDocumentKeyDownWrapper_) {
@@ -357,7 +371,7 @@ Blockly.FieldTextInput.prototype.unbindEvents_ = function(htmlInput) {
  * @param {!Event} e Keyboard event.
  * @private
  */
-Blockly.FieldTextInput.prototype.onHtmlInputKeyDown_ = function(e) {
+Blockly.FieldTextInput.prototype.onHtmlInputKeyDown_ = function (e) {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
   var tabKey = 9, enterKey = 13, escKey = 27;
   if (e.keyCode == enterKey) {
@@ -375,7 +389,7 @@ Blockly.FieldTextInput.prototype.onHtmlInputKeyDown_ = function(e) {
   }
 };
 
-Blockly.FieldTextInput.prototype.onDocumentKeyDown_ = function(e) {
+Blockly.FieldTextInput.prototype.onDocumentKeyDown_ = function (e) {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
   var targetMatches = e.target === htmlInput;
   var targetIsInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA';
@@ -405,8 +419,9 @@ Blockly.FieldTextInput.GECKO_KEYCODE_WHITELIST = [
  * @param {!Event} e Keyboard event.
  * @private
  */
-Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
+Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function (e) {
   // Check if the key matches the restrictor.
+  console.info('keyCode0', e.type);
   if (e.type === 'keypress' && this.restrictor_) {
     var keyCode;
     var isWhitelisted = false;
@@ -427,8 +442,11 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
     } else {
       keyCode = e.keyCode;
     }
+
     var char = String.fromCharCode(keyCode);
+    console.info('keyCode1=', keyCode, char);
     if (!isWhitelisted && !this.restrictor_.test(char) && e.preventDefault) {
+      console.info('keyCode2=', keyCode, char);
       // Failed to pass restrictor.
       e.preventDefault();
       return;
@@ -438,8 +456,13 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
   // Update source block.
   var text = htmlInput.value;
   if (text !== htmlInput.oldValue_) {
+    console.info('keyCode3=', keyCode, char, text, htmlInput.oldValue_);
     htmlInput.oldValue_ = text;
+    // console.info("enter setText2=",text);
+    // let firstChar= text[0] === '"' ? '':'"';
+    // let lastChar = text[text.length -1] === '"' ? '':'"';
     this.setText(text);
+    // console.info("enter setText3=",text);
     this.validate_();
   } else if (goog.userAgent.WEBKIT) {
     // Cursor key.  Render the source block to show the caret moving.
@@ -447,6 +470,7 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
     this.sourceBlock_.render();
   }
   this.resizeEditor_();
+
 };
 
 /**
@@ -454,7 +478,7 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
  * Style the editor accordingly.
  * @private
  */
-Blockly.FieldTextInput.prototype.validate_ = function() {
+Blockly.FieldTextInput.prototype.validate_ = function () {
   var valid = true;
   goog.asserts.assertObject(Blockly.FieldTextInput.htmlInput_);
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
@@ -472,7 +496,7 @@ Blockly.FieldTextInput.prototype.validate_ = function() {
  * Resize the editor and the underlying block to fit the text.
  * @private
  */
-Blockly.FieldTextInput.prototype.resizeEditor_ = function() {
+Blockly.FieldTextInput.prototype.resizeEditor_ = function () {
   var scale = this.sourceBlock_.workspace.scale;
   var div = Blockly.WidgetDiv.DIV;
 
@@ -487,10 +511,10 @@ Blockly.FieldTextInput.prototype.resizeEditor_ = function() {
   if (Blockly.BlockSvg.FIELD_TEXTINPUT_EXPAND_PAST_TRUNCATION) {
     // Resize the box based on the measured width of the text, pre-truncation
     var textWidth = Blockly.scratchBlocksUtils.measureText(
-        Blockly.FieldTextInput.htmlInput_.style.fontSize,
-        Blockly.FieldTextInput.htmlInput_.style.fontFamily,
-        Blockly.FieldTextInput.htmlInput_.style.fontWeight,
-        Blockly.FieldTextInput.htmlInput_.value
+      Blockly.FieldTextInput.htmlInput_.style.fontSize,
+      Blockly.FieldTextInput.htmlInput_.style.fontFamily,
+      Blockly.FieldTextInput.htmlInput_.style.fontWeight,
+      Blockly.FieldTextInput.htmlInput_.value
     );
     // Size drawn in the canvas needs padding and scaling
     textWidth += Blockly.FieldTextInput.TEXT_MEASURE_PADDING_MAGIC;
@@ -551,8 +575,8 @@ Blockly.FieldTextInput.prototype.resizeEditor_ = function() {
 /**
  * Border radius for drawing this field, called when rendering the owning shadow block.
  * @return {Number} Border radius in px.
-*/
-Blockly.FieldTextInput.prototype.getBorderRadius = function() {
+ */
+Blockly.FieldTextInput.prototype.getBorderRadius = function () {
   if (this.sourceBlock_.getOutputShape() == Blockly.OUTPUT_SHAPE_ROUND) {
     return Blockly.BlockSvg.NUMBER_FIELD_CORNER_RADIUS;
   }
@@ -564,9 +588,9 @@ Blockly.FieldTextInput.prototype.getBorderRadius = function() {
  * @return {!Function} Closure to call on destruction of the WidgetDiv.
  * @private
  */
-Blockly.FieldTextInput.prototype.widgetDispose_ = function() {
+Blockly.FieldTextInput.prototype.widgetDispose_ = function () {
   var thisField = this;
-  return function() {
+  return function () {
     var div = Blockly.WidgetDiv.DIV;
     var htmlInput = Blockly.FieldTextInput.htmlInput_;
     // Save the edit (if it validates).
@@ -601,8 +625,8 @@ Blockly.FieldTextInput.prototype.widgetDispose_ = function() {
  * @return {!Function} Closure to call on finish animation of the WidgetDiv.
  * @private
  */
-Blockly.FieldTextInput.prototype.widgetDisposeAnimationFinished_ = function() {
-  return function() {
+Blockly.FieldTextInput.prototype.widgetDisposeAnimationFinished_ = function () {
+  return function () {
     // Delete style properties.
     var style = Blockly.WidgetDiv.DIV.style;
     style.width = 'auto';
@@ -617,7 +641,7 @@ Blockly.FieldTextInput.prototype.widgetDisposeAnimationFinished_ = function() {
   };
 };
 
-Blockly.FieldTextInput.prototype.maybeSaveEdit_ = function() {
+Blockly.FieldTextInput.prototype.maybeSaveEdit_ = function () {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
   // Save the edit (if it validates).
   var text = htmlInput.value;
@@ -643,9 +667,9 @@ Blockly.FieldTextInput.prototype.maybeSaveEdit_ = function() {
  * @param {string} text The user's text.
  * @return {?string} A string representing a valid number, or null if invalid.
  */
-Blockly.FieldTextInput.numberValidator = function(text) {
+Blockly.FieldTextInput.numberValidator = function (text) {
   console.warn('Blockly.FieldTextInput.numberValidator is deprecated. ' +
-               'Use Blockly.FieldNumber instead.');
+    'Use Blockly.FieldNumber instead.');
   if (text === null) {
     return null;
   }
@@ -664,7 +688,7 @@ Blockly.FieldTextInput.numberValidator = function(text) {
  * @param {string} text The user's text.
  * @return {?string} A string representing a valid int, or null if invalid.
  */
-Blockly.FieldTextInput.nonnegativeIntegerValidator = function(text) {
+Blockly.FieldTextInput.nonnegativeIntegerValidator = function (text) {
   var n = Blockly.FieldTextInput.numberValidator(text);
   if (n) {
     n = String(Math.max(0, Math.floor(n)));

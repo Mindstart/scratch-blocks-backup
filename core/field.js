@@ -59,7 +59,9 @@ Blockly.Field = function(text, opt_validator) {
    * Same for strings and numbers.
    * @type {number}
    */
-  this.maxDisplayLength = Blockly.BlockSvg.MAX_DISPLAY_LENGTH;
+  this.maxDisplayLength = 22;//Blockly.BlockSvg.MAX_DISPLAY_LENGTH;
+  this.maxInputLength = 20;
+
 };
 
 
@@ -600,13 +602,14 @@ Blockly.Field.prototype.getScaledBBox_ = function() {
  */
 Blockly.Field.prototype.getDisplayText_ = function() {
   var text = this.text_;
-  if (!text) {
+  if (!text ) {
     // Prevent the field from disappearing if empty.
     return Blockly.Field.NBSP;
   }
   if (text.length > this.maxDisplayLength) {
     // Truncate displayed string and add an ellipsis ('...').
     text = text.substring(0, this.maxDisplayLength - 2) + '\u2026';
+
   }
   // Replace whitespace with non-breaking spaces so the text doesn't collapse.
   text = text.replace(/\s/g, Blockly.Field.NBSP);
@@ -634,18 +637,34 @@ Blockly.Field.prototype.getText = function() {
  * @param {*} newText New text.
  */
 Blockly.Field.prototype.setText = function(newText) {
-  if (newText === null) {
+  if (newText === null || this.isChinese(newText) ) {
     // No change if null.
     return;
   }
-  newText = String(newText);
-  if (newText === this.text_) {
+
+  if (newText === this.text_ ) {
     // No change.
     return;
   }
   this.text_ = newText;
   this.forceRerender();
 };
+
+/*
+
+ */
+Blockly.Field.prototype.isChinese = function (temp) {
+
+  let ret;
+  if (escape(temp).indexOf( "%u" )<0)
+  {
+    ret = false
+  } else {
+    ret = true
+  }
+
+  return ret;
+}
 
 /**
  * Force a rerender of the block that this field is installed on, which will
@@ -673,8 +692,10 @@ Blockly.Field.prototype.updateTextNode_ = function() {
     // Not rendered yet.
     return;
   }
+
   var text = this.text_;
   if (text.length > this.maxDisplayLength) {
+
     // Truncate displayed string and add an ellipsis ('...').
     text = text.substring(0, this.maxDisplayLength - 2) + '\u2026';
     // Add special class for sizing font when truncated
@@ -720,12 +741,14 @@ Blockly.Field.prototype.getValue = function() {
  * @param {string} newValue New value.
  */
 Blockly.Field.prototype.setValue = function(newValue) {
-  if (newValue === null) {
+
+  if (newValue === null ) {
     // No change if null.
     return;
   }
   var oldValue = this.getValue();
-  if (oldValue == newValue) {
+  var newText = String(newValue);
+  if (oldValue == newValue ) {
     return;
   }
   if (this.sourceBlock_ && Blockly.Events.isEnabled()) {

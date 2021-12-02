@@ -51,12 +51,11 @@ goog.require('goog.userAgent');
  * @extends {Blockly.FieldTextInput}
  * @constructor
  */
-Blockly.FieldNumber = function(opt_value, opt_min, opt_max, opt_precision,
-    opt_validator) {
+Blockly.FieldNumber = function(opt_value, opt_min, opt_max, opt_precision, opt_validator) {
   var numRestrictor = this.getNumRestrictor(opt_min, opt_max, opt_precision);
   opt_value = (opt_value && !isNaN(opt_value)) ? String(opt_value) : '0';
-  Blockly.FieldNumber.superClass_.constructor.call(
-      this, opt_value, opt_validator, numRestrictor);
+  Blockly.FieldNumber.superClass_.constructor.call(this, opt_value, opt_validator, numRestrictor);
+  this.setRestrictor(numRestrictor);
   this.addArgType('number');
 };
 goog.inherits(Blockly.FieldNumber, Blockly.FieldTextInput);
@@ -135,9 +134,10 @@ Blockly.FieldNumber.prototype.getNumRestrictor = function(opt_min, opt_max,
   if (this.negativeAllowed_) {
     pattern += "|[-]";
   }
-  if (this.exponentialAllowed_) {
-    pattern += "|[eE]";
-  }
+
+  // if (this.exponentialAllowed_) {
+  //   pattern += "|[eE]";
+  // }
   return new RegExp(pattern);
 };
 
@@ -344,6 +344,7 @@ Blockly.FieldNumber.numPadEraseButtonTouch = function(e) {
  */
 Blockly.FieldNumber.updateDisplay_ = function(newValue, newSelection) {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
+
   // Updates the display. The actual setValue occurs when editing ends.
   htmlInput.value = newValue;
   // Resize and scroll the text field appropriately
@@ -362,5 +363,34 @@ Blockly.FieldNumber.prototype.onHide_ = function() {
   Blockly.DropDownDiv.content_.removeAttribute('role');
   Blockly.DropDownDiv.content_.removeAttribute('aria-haspopup');
 };
+
+Blockly.FieldNumber.prototype.setText = function(newText) {
+
+  if (newText === null || !this.isNumber(newText)) {
+    // No change if null.
+    return;
+  }
+  newText = String(newText);
+  if (newText === this.text_ ) {
+    // No change.
+    return;
+  }
+  //newText = '"'+ newText.substring(0,this.maxInputLength) + '"';
+  if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
+    Blockly.Events.fire(new Blockly.Events.BlockChange(
+      this.sourceBlock_, 'field', this.name, this.text_, newText));
+  }
+  Blockly.Field.prototype.setText.call(this, newText);
+};
+
+Blockly.FieldNumber.prototype.isNumber = function(val) {
+  var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+  var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+  if(regPos.test(val) || regNeg.test(val)){
+    return true;
+  }else{
+    return false;
+  }
+}
 
 Blockly.Field.register('field_number', Blockly.FieldNumber);

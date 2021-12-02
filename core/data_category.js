@@ -158,7 +158,7 @@ Blockly.DataCategory.addSetVariableTo = function(xmlList, variable,type) {
   //   </value>
   // </block>
   if(type == 0) {
-    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setvariableto', 'VARIABLE', ['VALUE', 'text', 0]);
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setvariableto', 'VARIABLE', ['VALUE', 'math_number', 0]);
   }else if(type == 1){
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_setstrvariableto', 'STR_VARIABLE', ['VALUE', 'text', 'hello']);
   }else if(type == 2){
@@ -457,7 +457,10 @@ Blockly.DataCategory.addCreateButton = function(xmlList, workspace, type) {
       Blockly.Variables.createVariable(button.getTargetWorkspace(), null,
           Blockly.LIST_VARIABLE_TYPE);};
   }
-  button.setAttribute('text', msg);
+  if (type === 'VARIABLE')
+    button.setAttribute('math_number', msg);
+  else
+    button.setAttribute('text', msg);
   button.setAttribute('callbackKey', callbackKey);
   workspace.registerButtonCallback(callbackKey, callback);
   xmlList.push(button);
