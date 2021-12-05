@@ -421,7 +421,7 @@ Blockly.FieldTextInput.GECKO_KEYCODE_WHITELIST = [
  */
 Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function (e) {
   // Check if the key matches the restrictor.
-  console.info('keyCode0', e.type);
+  //console.info('keyCode0', e.type);
   if (e.type === 'keypress' && this.restrictor_) {
     var keyCode;
     var isWhitelisted = false;
@@ -444,9 +444,9 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function (e) {
     }
 
     var char = String.fromCharCode(keyCode);
-    console.info('keyCode1=', keyCode, char);
+    //console.info('keyCode1=', keyCode, char);
     if (!isWhitelisted && !this.restrictor_.test(char) && e.preventDefault) {
-      console.info('keyCode2=', keyCode, char);
+      //console.info('keyCode2=', keyCode, char);
       // Failed to pass restrictor.
       e.preventDefault();
       return;
@@ -456,7 +456,7 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function (e) {
   // Update source block.
   var text = htmlInput.value;
   if (text !== htmlInput.oldValue_) {
-    console.info('keyCode3=', keyCode, char, text, htmlInput.oldValue_);
+    //console.info('keyCode3=', keyCode, char, text, htmlInput.oldValue_);
     htmlInput.oldValue_ = text;
     // console.info("enter setText2=",text);
     // let firstChar= text[0] === '"' ? '':'"';

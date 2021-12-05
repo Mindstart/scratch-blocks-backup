@@ -59,7 +59,7 @@ Blockly.Field = function(text, opt_validator) {
    * Same for strings and numbers.
    * @type {number}
    */
-  this.maxDisplayLength = 22;//Blockly.BlockSvg.MAX_DISPLAY_LENGTH;
+  this.maxDisplayLength = Blockly.BlockSvg.MAX_DISPLAY_LENGTH;
   this.maxInputLength = 20;
 
 };
