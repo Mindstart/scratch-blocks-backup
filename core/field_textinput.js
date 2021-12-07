@@ -78,9 +78,10 @@ Blockly.FieldTextInput.fromJson = function(options) {
     return field;
 };
 
-Blockly.FieldTextInput.prototype.getRestrictor = function() {
-    var pattern = '[\\S]';
-    return new RegExp(pattern);
+Blockly.FieldTextInput.prototype.getRestrictor = function () {
+
+  var pattern = '[\\S^"]';
+  return new RegExp(pattern);
 };
 
 /**
@@ -183,11 +184,18 @@ Blockly.FieldTextInput.prototype.setText = function(newText) {
     if (newText === this.text_) {
         // No change.
         return;
-    }
-    // let firstChar = newText[0] === '"' ? '' : '"';
-    // let lastChar = newText[newText.length - 1] === '"' ? '' : '"';
-    // let text = newText[0] === '"' ? newText.substring(0, this.maxInputLength + 1) + '"' : newText.substring(0, this.maxInputLength);
-    // newText = firstChar + text + lastChar;
+    // if(newText[0] === '"') {
+    //     if(newText.length <= this.maxInputLength + 2)
+    //       newText =  newText ;
+    //     else
+    //       newText = newText.substring(0,this.maxInputLength +1 ) + '"';
+    //   }
+    //   else {
+    //     if(newText.length <= this.maxInputLength)
+    //       newText = '"' + newText + '"';
+    //     else
+    //       newText = '"' + newText.substring(0, this.maxInputLength ) + '"';
+    //   }
     if (newText.indexOf('\'') >= 0 || newText.indexOf('"') >= 0) {
         newText = newText.replace(/"([^"]+(?="))"/g, '$1');
     }
