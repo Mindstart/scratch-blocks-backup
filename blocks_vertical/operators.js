@@ -551,3 +551,22 @@ Blockly.Blocks['operator_mathop'] = {
     });
   }
 };
+Blockly.Blocks['operator_num_to_text'] = {
+  /**
+   * Block for mapping a number to range.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_NUM_TO_TEXT,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "NUM1"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_number"]
+    });
+  }
+};

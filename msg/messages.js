@@ -222,6 +222,7 @@ Blockly.Msg.OPERATORS_MATHOP_LOG = 'log';
 Blockly.Msg.OPERATORS_MATHOP_EEXP = 'e ^';
 Blockly.Msg.OPERATORS_MATHOP_10EXP = '10 ^';
 Blockly.Msg.OPERATORS_MAP = 'map %1 from [ %2 , %3 ] to [ %4 , %5 ]';
+Blockly.Msg.OPERATORS_NUM_TO_TEXT = 'convert number %1 to string';
 // Procedures blocks
 Blockly.Msg.PROCEDURES_DEFINITION = 'define %1';
 
