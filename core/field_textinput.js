@@ -184,6 +184,7 @@ Blockly.FieldTextInput.prototype.setText = function(newText) {
     if (newText === this.text_) {
         // No change.
         return;
+    }
     // if(newText[0] === '"') {
     //     if(newText.length <= this.maxInputLength + 2)
     //       newText =  newText ;
