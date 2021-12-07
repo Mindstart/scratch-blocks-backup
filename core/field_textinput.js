@@ -80,7 +80,7 @@ Blockly.FieldTextInput.fromJson = function (options) {
 
 Blockly.FieldTextInput.prototype.getRestrictor = function () {
 
-  var pattern = '[\\S]';
+  var pattern = '[\\S^"]';
  // console.info('enter FieldTextInput');
   return new RegExp(pattern);
 };
@@ -189,11 +189,19 @@ Blockly.FieldTextInput.prototype.setText = function (newText) {
     return;
   }
   //console.info('enter setText=', newText);
-  let firstChar = newText[0] === '"' ? '' : '"';
-  let lastChar = newText[newText.length - 1] === '"' ? '' : '"';
-  let text = newText[0] === '"' ? newText.substring(0, this.maxInputLength + 1) + '"' : newText.substring(0, this.maxInputLength);
-  newText = firstChar + text + lastChar;
-  //console.info('enter setText1=', newText);
+  if(newText[0] === '"') {
+    if(newText.length <= this.maxInputLength + 2)
+      newText =  newText ;
+    else
+      newText = newText.substring(0,this.maxInputLength +1 ) + '"';
+  }
+  else {
+    if(newText.length <= this.maxInputLength)
+      newText = '"' + newText + '"';
+    else
+      newText = '"' + newText.substring(0, this.maxInputLength ) + '"';
+  }
+
   if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
     Blockly.Events.fire(new Blockly.Events.BlockChange(
       this.sourceBlock_, 'field', this.name, this.text_, newText));
