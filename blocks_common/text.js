@@ -54,3 +54,25 @@ Blockly.Blocks['text'] = {
     });
   }
 };
+Blockly.Blocks['array_char'] = {
+  /**
+   * Block for text value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TEXT"
+        }
+      ],
+      "output": "String",
+      "outputShape": Blockly.OUTPUT_SHAPE_SQUARE,
+      "colour": Blockly.Colours.textField,
+      "colourSecondary": Blockly.Colours.textField,
+      "colourTertiary": Blockly.Colours.textField
+    });
+  }
+};

@@ -645,6 +645,7 @@ Blockly.Xml.domToVariables = function(xmlVariables, workspace) {
     if (typeof(type) === undefined || type === null) {
       throw Error('Variable with id, ' + id + ' is without a type');
     }
+    //console.info("domToVariables",type,name,id,isLocal,isCloud);
     workspace.createVariable(name, type, id, isLocal, isCloud);
   }
 };
@@ -744,8 +745,11 @@ Blockly.Xml.domToBlockHeadless_ = function(xmlBlock, workspace) {
         Blockly.Xml.domToField_(block, name, xmlChild);
         break;
       case 'value':
-      case 'statement':
+    case 'statement':
         input = block.getInput(name);
+        console.info("enter fx name=",name)
+        console.info("enter fx block=",block);
+        console.info("enter fx input=",input);
         if (!input) {
           console.warn('Ignoring non-existent input ' + name + ' in block ' +
                        prototypeName);
@@ -837,7 +841,7 @@ Blockly.Xml.domToBlockHeadless_ = function(xmlBlock, workspace) {
  * @private
  */
 Blockly.Xml.domToFieldVariable_ = function(workspace, xml, text, field) {
-  var type = xml.getAttribute('variabletype') || '' || 'boolean' || 'str';
+  var type = xml.getAttribute('variabletype') || '' ;
   // TODO (fenichel): Does this need to be explicit or not?
   if (type == '\'\'') {
     type = '';
@@ -884,6 +888,11 @@ Blockly.Xml.domToField_ = function(block, fieldName, xml) {
 
   var workspace = block.workspace;
   var text = xml.textContent;
+  console.info("referencesVariables",field)
+  console.info("referencesVariables",field.referencesVariables())
+  console.info("referencesVariables",text)
+
+
   if (field.referencesVariables()) {
     Blockly.Xml.domToFieldVariable_(workspace, xml, text, field);
   } else {

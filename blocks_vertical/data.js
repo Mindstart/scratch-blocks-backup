@@ -48,7 +48,10 @@ Blockly.Blocks['data_variable'] = {
       ],
       "category": Blockly.Categories.data,
       "checkboxInFlyout": true,
-      "extensions": ["contextMenu_getVariableBlock", "colours_data", "output_string"]
+      "colour": Blockly.Colours.data.primary,
+      "colourSecondary": Blockly.Colours.data.secondary,
+      "colourTertiary": Blockly.Colours.data.tertiary,
+      "extensions": ["contextMenu_getVariableBlock", "output_string"]
     });
   }
 };
@@ -103,6 +106,60 @@ Blockly.Blocks['data_booleanvariable'] = {
       "colourSecondary": Blockly.Colours.data_booleans.secondary,
       "colourTertiary": Blockly.Colours.data_booleans.tertiary,
       "extensions": ["contextMenu_getBooleanVariableBlock", "output_string"]
+    });
+  }
+};
+
+Blockly.Blocks['data_arraynumvariable'] = {
+  /**
+   * Block of Variables
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "lastDummyAlign0": "CENTRE",
+      "args0": [
+        {
+          "type": "field_variable_getter",
+          "text": "true",
+          "name": "ARRAY_NUM_VARIABLE",
+          "variableType": ""
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "checkboxInFlyout": true,
+      "colour": Blockly.Colours.data_arraynum.primary,
+      "colourSecondary": Blockly.Colours.data_arraynum.secondary,
+      "colourTertiary": Blockly.Colours.data_arraynum.tertiary,
+      "extensions": ["contextMenu_getARRAYNUMVariableBlock", "output_string"]
+    });
+  }
+};
+
+Blockly.Blocks['data_arraycharvariable'] = {
+  /**
+   * Block of Variables
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "lastDummyAlign0": "CENTRE",
+      "args0": [
+        {
+          "type": "field_variable_getter",
+          "text": "true",
+          "name": "ARRAY_CHAR_VARIABLE",
+          "variableType": ""
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "checkboxInFlyout": true,
+      "colour": Blockly.Colours.data_arraychar.primary,
+      "colourSecondary": Blockly.Colours.data_arraychar.secondary,
+      "colourTertiary": Blockly.Colours.data_arraychar.tertiary,
+      "extensions": ["contextMenu_getARRAYCHARVariableBlock", "output_string"]
     });
   }
 };
@@ -186,6 +243,60 @@ Blockly.Blocks['data_setbooleanvariableto'] = {
       "colour": Blockly.Colours.data_booleans.primary,
       "colourSecondary": Blockly.Colours.data_booleans.secondary,
       "colourTertiary": Blockly.Colours.data_booleans.tertiary,
+      "extensions": ["shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['data_setarraynumvariableto'] = {
+  /**
+   * Block to set string variable to a certain value
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_SETVARIABLETO,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "ARRAY_NUM_VARIABLE"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_arraynum.primary,
+      "colourSecondary": Blockly.Colours.data_arraynum.secondary,
+      "colourTertiary": Blockly.Colours.data_arraynum.tertiary,
+      "extensions": ["shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['data_setarraycharvariableto'] = {
+  /**
+   * Block to set string variable to a certain value
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_SETVARIABLETO,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "ARRAY_CHAR_VARIABLE"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_arraychar.primary,
+      "colourSecondary": Blockly.Colours.data_arraychar.secondary,
+      "colourTertiary": Blockly.Colours.data_arraychar.tertiary,
       "extensions": ["shape_statement"]
     });
   }
@@ -521,6 +632,66 @@ Blockly.Blocks['data_itemoflist'] = {
   }
 };
 
+Blockly.Blocks['data_itemofarraynum'] = {
+  /**
+   * Block for reporting item of arraynum.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_ITEMOFARRAYNUM,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "INDEX"
+        },
+        {
+          "type": "field_variable",
+          "name": "ARRAY_NUM_VARIABLE",
+          "variableTypes": [Blockly.ARRAY_NUM_VARIABLE_TYPE]
+        }
+      ],
+      "output": null,
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_arraynum.primary,
+      "colourSecondary": Blockly.Colours.data_arraynum.secondary,
+      "colourTertiary": Blockly.Colours.data_arraynum.tertiary,
+      // "extensions": ["colours_data"],
+      "outputShape": Blockly.OUTPUT_SHAPE_ROUND
+    });
+  }
+};
+
+Blockly.Blocks['data_itemofarraychar'] = {
+  /**
+   * Block for reporting item of arraychar.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_ITEMOFARRAYCHAR,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "INDEX"
+        },
+        {
+          "type": "field_variable",
+          "name": "ARRAY_CHAR_VARIABLE",
+          "variableTypes": [Blockly.ARRAY_CHAR_VARIABLE_TYPE]
+        }
+      ],
+      "output": null,
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_arraychar.primary,
+      "colourSecondary": Blockly.Colours.data_arraychar.secondary,
+      "colourTertiary": Blockly.Colours.data_arraychar.tertiary,
+      // "extensions": ["colours_data_lists"],
+      "outputShape": Blockly.OUTPUT_SHAPE_ROUND
+    });
+  }
+};
+
 Blockly.Blocks['data_itemnumoflist'] = {
   /**
    * Block for reporting the item # of a string in a list.
@@ -565,6 +736,54 @@ Blockly.Blocks['data_lengthoflist'] = {
       ],
       "category": Blockly.Categories.dataLists,
       "extensions": ["colours_data_lists", "output_number"]
+    });
+  }
+};
+
+Blockly.Blocks['data_lengthofarraynum'] = {
+  /**
+   * Block for reporting length of arraynum.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_LENGTHOFARRAY,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "ARRAY_NUM_VARIABLE",
+          "variableTypes": [Blockly.ARRAY_NUM_VARIABLE_TYPE]
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_arraynum.primary,
+      "colourSecondary": Blockly.Colours.data_arraynum.secondary,
+      "colourTertiary": Blockly.Colours.data_arraynum.tertiary,
+      "extensions": ["output_number"]
+    });
+  }
+};
+
+Blockly.Blocks['data_lengthofarraychar'] = {
+  /**
+   * Block for reporting length of arraychar.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_LENGTHOFARRAY,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "ARRAY_CHAR_VARIABLE",
+          "variableTypes": [Blockly.ARRAY_CHAR_VARIABLE_TYPE]
+        }
+      ],
+      "category": Blockly.Categories.data,
+      "colour": Blockly.Colours.data_arraychar.primary,
+      "colourSecondary": Blockly.Colours.data_arraychar.secondary,
+      "colourTertiary": Blockly.Colours.data_arraychar.tertiary,
+      "extensions": ["output_number"]
     });
   }
 };
@@ -742,8 +961,7 @@ Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN = {
     }
   }
 };
-Blockly.Extensions.registerMixin('contextMenu_getStrVariableBlock',
-  Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN);
+Blockly.Extensions.registerMixin('contextMenu_getStrVariableBlock',  Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_STRVARIABLE_MIXIN);
 
 Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_BOOLEANVARIABLE_MIXIN = {
 customContextMenu: function(options) {
@@ -789,6 +1007,96 @@ customContextMenu: function(options) {
 };
 Blockly.Extensions.registerMixin('contextMenu_getBooleanVariableBlock',
   Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_BOOLEANVARIABLE_MIXIN);
+
+Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_ARRAYNUMVARIABLE_MIXIN = {
+  customContextMenu: function(options) {
+    var fieldName = 'ARRAY_NUM_VARIABLE';
+    if (this.isCollapsed()) {
+      return;
+    }
+    var currentVarName = this.getField(fieldName).text_;
+    if (!this.isInFlyout) {
+      var variablesList = this.workspace.getVariablesOfType('array_num');
+      variablesList.sort(function(a, b) {
+        return Blockly.scratchBlocksUtils.compareStrings(a.name, b.name);
+      });
+      for (var i = 0; i < variablesList.length; i++) {
+        var varName = variablesList[i].name;
+        if (varName == currentVarName) continue;
+
+        var option = {enabled: true};
+        option.text = varName;
+
+        option.callback =
+          Blockly.Constants.Data.VARIABLE_OPTION_CALLBACK_FACTORY(this,
+            variablesList[i].getId(), fieldName);
+        options.push(option);
+      }
+    } else {
+      var renameOption = {
+        text: Blockly.Msg.RENAME_ARRAY_NUM_VARIABLE,
+        enabled: true,
+        callback: Blockly.Constants.Data.RENAME_OPTION_CALLBACK_FACTORY(this,
+          fieldName)
+      };
+      var deleteOption = {
+        text: Blockly.Msg.DELETE_ARRAY_NUM_VARIABLE.replace('%1', currentVarName),
+        enabled: true,
+        callback: Blockly.Constants.Data.DELETE_OPTION_CALLBACK_FACTORY(this,
+          fieldName)
+      };
+      options.push(renameOption);
+      options.push(deleteOption);
+    }
+  }
+};
+Blockly.Extensions.registerMixin('contextMenu_getARRAYNUMVariableBlock',
+  Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_ARRAYNUMVARIABLE_MIXIN);
+
+Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_ARRAYCHARVARIABLE_MIXIN = {
+  customContextMenu: function(options) {
+    var fieldName = 'ARRAY_CHAR_VARIABLE';
+    if (this.isCollapsed()) {
+      return;
+    }
+    var currentVarName = this.getField(fieldName).text_;
+    if (!this.isInFlyout) {
+      var variablesList = this.workspace.getVariablesOfType('array_char');
+      variablesList.sort(function(a, b) {
+        return Blockly.scratchBlocksUtils.compareStrings(a.name, b.name);
+      });
+      for (var i = 0; i < variablesList.length; i++) {
+        var varName = variablesList[i].name;
+        if (varName == currentVarName) continue;
+
+        var option = {enabled: true};
+        option.text = varName;
+
+        option.callback =
+          Blockly.Constants.Data.VARIABLE_OPTION_CALLBACK_FACTORY(this,
+            variablesList[i].getId(), fieldName);
+        options.push(option);
+      }
+    } else {
+      var renameOption = {
+        text: Blockly.Msg.RENAME_ARRAY_CHAR_VARIABLE,
+        enabled: true,
+        callback: Blockly.Constants.Data.RENAME_OPTION_CALLBACK_FACTORY(this,
+          fieldName)
+      };
+      var deleteOption = {
+        text: Blockly.Msg.DELETE_ARRAY_CHAR_VARIABLE.replace('%1', currentVarName),
+        enabled: true,
+        callback: Blockly.Constants.Data.DELETE_OPTION_CALLBACK_FACTORY(this,
+          fieldName)
+      };
+      options.push(renameOption);
+      options.push(deleteOption);
+    }
+  }
+};
+Blockly.Extensions.registerMixin('contextMenu_getARRAYCHARVariableBlock',
+  Blockly.Constants.Data.CUSTOM_CONTEXT_MENU_GET_ARRAYCHARVARIABLE_MIXIN);
 
 /**
  * Mixin to add a context menu for a data_listcontents block.  It adds one item for

@@ -349,6 +349,8 @@ Blockly.BROADCAST_MESSAGE_VARIABLE_TYPE = 'broadcast_msg';
  */
 Blockly.STRING_VARIABLE_TYPE = 'str';
 Blockly.BOOLEAN_VARIABLE_TYPE = 'boolean';
+Blockly.ARRAY_NUM_VARIABLE_TYPE = 'array_num';
+Blockly.ARRAY_CHAR_VARIABLE_TYPE = 'array_char';
 Blockly.LIST_VARIABLE_TYPE = 'list';
 
 // TODO (#1251) Replace '' below with 'scalar', and start using this constant

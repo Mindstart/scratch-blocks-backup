@@ -292,6 +292,14 @@ Blockly.Variables.createVariable = function(workspace, opt_callback, opt_type) {
     opt_type = opt_type ? opt_type : '';
     newMsg = Blockly.Msg.NEW_BOOLEAN_VARIABLE_TITLE;
     modalTitle = Blockly.Msg.BOOLEAN_VARIABLE_MODAL_TITLE;
+  }else if(opt_type == Blockly.ARRAY_NUM_VARIABLE_TYPE) {
+    opt_type = opt_type ? opt_type : '';
+    newMsg = Blockly.Msg.NEW_ARRAY_NUM_VARIABLE_TITLE;
+    modalTitle = Blockly.Msg.ARRAY_NUM_VARIABLE_MODAL_TITLE;
+  }else if(opt_type == Blockly.ARRAY_CHAR_VARIABLE_TYPE) {
+    opt_type = opt_type ? opt_type : '';
+    newMsg = Blockly.Msg.NEW_ARRAY_CHAR_VARIABLE_TITLE;
+    modalTitle = Blockly.Msg.ARRAY_CHAR_VARIABLE_MODAL_TITLE;
   }else {
     // Note: this case covers 1) scalar variables, 2) any new type of
     // variable not explicitly checked for above, and 3) a null or undefined
@@ -397,6 +405,12 @@ Blockly.Variables.nameValidator_ = function(type, text, workspace, additionalVar
   }else if (type == Blockly.BOOLEAN_VARIABLE_TYPE){
     return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, isCloud, type,
       Blockly.Msg.VARIABLE_ALREADY_EXISTS);
+  }else if (type == Blockly.ARRAY_NUM_VARIABLE_TYPE){
+    return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, false, type,
+      Blockly.Msg.VARIABLE_ALREADY_EXISTS);
+  }else if (type == Blockly.ARRAY_CHAR_VARIABLE_TYPE){
+    return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, false, type,
+      Blockly.Msg.VARIABLE_ALREADY_EXISTS);
   }else {
     return Blockly.Variables.validateScalarVarOrListName_(text, workspace, additionalVars, isCloud, type,
       Blockly.Msg.VARIABLE_ALREADY_EXISTS);
@@ -500,6 +514,12 @@ Blockly.Variables.renameVariable = function(workspace, variable,
   } else if (varType == Blockly.BOOLEAN_VARIABLE_TYPE) {
     promptMsg = Blockly.Msg.RENAME_BOOLEAN_VARIABLE_TITLE;
     modalTitle = Blockly.Msg.RENAME_BOOLEAN_VARIABLE_MODAL_TITLE;
+  } else if (varType == Blockly.ARRAY_NUM_VARIABLE_TYPE) {
+    promptMsg = Blockly.Msg.RENAME_ARRAY_NUM_VARIABLE_TITLE;
+    modalTitle = Blockly.Msg.RENAME_ARRAY_NUM_VARIABLE_MODAL_TITLE;
+  } else if (varType == Blockly.ARRAY_CHAR_VARIABLE_TYPE) {
+    promptMsg = Blockly.Msg.RENAME_ARRAY_CHAR_VARIABLE_TITLE;
+    modalTitle = Blockly.Msg.RENAME_ARRAY_CHAR_VARIABLE_MODAL_TITLE;
   } else {
     // Default for all other types of variables
     promptMsg = Blockly.Msg.RENAME_VARIABLE_TITLE;
@@ -568,7 +588,7 @@ Blockly.Variables.generateVariableFieldXml_ = function(variableModel, opt_name) 
   if (typeString == '') {
     typeString = '\'\'';
   }
-  var fieldName = opt_name || 'VARIABLE' || 'STR_VARIABLE' || 'BOOLEAN_VARIABLE';
+  var fieldName = opt_name || 'VARIABLE' || 'STR_VARIABLE' || 'BOOLEAN_VARIABLE' || 'ARRAY_NUM_VARIABLE' || 'ARRAY_CHAR_VARIABLE';
   var text = '<field name="' + fieldName + '" id="' + variableModel.getId() +
     '" variabletype="' + goog.string.htmlEscape(typeString) +
     '">' + goog.string.htmlEscape(variableModel.name) + '</field>';

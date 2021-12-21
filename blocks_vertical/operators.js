@@ -433,6 +433,82 @@ Blockly.Blocks['operator_contains'] = {
   }
 };
 
+Blockly.Blocks['operator_findIndex'] = {
+  /**
+   * Block for _ findIndex _ operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_FINDINDEX,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "STRING1"
+        },
+        {
+          "type": "input_value",
+          "name": "STRING2"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_number"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_getChar'] = {
+  /**
+   * Block for _ getChar _ operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_GETCHAR,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "STRING1"
+        },
+        {
+          "type": "input_value",
+          "name": "STRING2"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_string"]
+    });
+  }
+};
+
+Blockly.Blocks['operator_setChar'] = {
+  /**
+   * Block for _ setChar _ operator
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_SETCHAR,
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "STRING1"
+        },
+        {
+          "type": "input_value",
+          "name": "STRING2"
+        },
+        {
+          "type": "input_value",
+          "name": "STRING3"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_mod'] = {
   /**
    * Block for mod two numbers.

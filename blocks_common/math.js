@@ -152,3 +152,26 @@ Blockly.Blocks['math_angle'] = {
     });
   }
 };
+Blockly.Blocks['array_num'] = {
+  /**
+   * Block for angle picker.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_numberArray",
+          "name": "NUM",
+          "value": "0"
+        }
+      ],
+      "output": "String",
+      "outputShape": Blockly.OUTPUT_SHAPE_SQUARE,
+      "colour": Blockly.Colours.textField,
+      "colourSecondary": Blockly.Colours.textField,
+      "colourTertiary": Blockly.Colours.textField
+    });
+  }
+};
