@@ -52,7 +52,7 @@ goog.require('goog.userAgent');
  * @constructor
  */
 Blockly.FieldNumber = function(opt_value, opt_min, opt_max, opt_precision, opt_validator) {
-  console.info("enter FieldNumber")
+  //console.info("enter FieldNumber")
   var numRestrictor = this.getNumRestrictor(opt_min, opt_max, opt_precision);
   opt_value = (opt_value && !isNaN(opt_value)) ? String(opt_value) : '0';
   Blockly.FieldNumber.superClass_.constructor.call(this, opt_value, opt_validator, numRestrictor);
@@ -365,7 +365,7 @@ Blockly.FieldNumber.prototype.onHide_ = function() {
 };
 
 Blockly.FieldNumber.prototype.setText = function(newText) {
-  console.info("enter settext FieldNumber")
+  //console.info("enter settext FieldNumber")
   if (newText === null || !this.isNumber(newText)) {
     // No change if null.
     return;

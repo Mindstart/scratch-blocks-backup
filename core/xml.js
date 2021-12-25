@@ -747,9 +747,9 @@ Blockly.Xml.domToBlockHeadless_ = function(xmlBlock, workspace) {
       case 'value':
     case 'statement':
         input = block.getInput(name);
-        console.info("enter fx name=",name)
-        console.info("enter fx block=",block);
-        console.info("enter fx input=",input);
+        // console.info("enter fx name=",name)
+        // console.info("enter fx block=",block);
+        // console.info("enter fx input=",input);
         if (!input) {
           console.warn('Ignoring non-existent input ' + name + ' in block ' +
                        prototypeName);
@@ -888,9 +888,9 @@ Blockly.Xml.domToField_ = function(block, fieldName, xml) {
 
   var workspace = block.workspace;
   var text = xml.textContent;
-  console.info("referencesVariables",field)
-  console.info("referencesVariables",field.referencesVariables())
-  console.info("referencesVariables",text)
+  // console.info("referencesVariables",field)
+  // console.info("referencesVariables",field.referencesVariables())
+  // console.info("referencesVariables",text)
 
 
   if (field.referencesVariables()) {
