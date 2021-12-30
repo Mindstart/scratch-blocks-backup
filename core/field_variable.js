@@ -48,7 +48,7 @@ goog.require('goog.string');
 Blockly.FieldVariable = function(varname, opt_validator, opt_variableTypes) {
   // The FieldDropdown constructor would call setValue, which might create a
   // spurious variable.  Just do the relevant parts of the constructor.
-  console.info("opt_variableTypes=",varname,opt_variableTypes);
+  //console.info("opt_variableTypes=",varname,opt_variableTypes);
   this.menuGenerator_ = Blockly.FieldVariable.dropdownCreate;
   this.size_ = new goog.math.Size(Blockly.BlockSvg.FIELD_WIDTH,
       Blockly.BlockSvg.FIELD_HEIGHT);
@@ -255,12 +255,12 @@ Blockly.FieldVariable.prototype.typeIsAllowed_ = function(type) {
 Blockly.FieldVariable.prototype.getVariableTypes_ = function() {
   // TODO (#1513): Try to avoid calling this every time the field is edited.
   var variableTypes = this.variableTypes;
-  console.info("getVariableTypes_=",variableTypes)
+  //console.info("getVariableTypes_=",variableTypes)
   if (variableTypes === null || variableTypes === "undefined") {
     // If variableTypes is null, return all variable types.
     if (this.sourceBlock_) {
       var workspace = this.sourceBlock_.workspace;
-      console.info("getVariableTypes_1=",workspace.getVariableTypes())
+      //console.info("getVariableTypes_1=",workspace.getVariableTypes())
       return workspace.getVariableTypes();
     }
   }
@@ -271,7 +271,7 @@ Blockly.FieldVariable.prototype.getVariableTypes_ = function() {
     throw new Error('\'variableTypes\' of field variable ' +
       name + ' was an empty list');
   }
-  console.info("getVariableTypes_2=",variableTypes)
+  //console.info("getVariableTypes_2=",variableTypes)
   return variableTypes;
 };
 
@@ -289,7 +289,7 @@ Blockly.FieldVariable.dropdownCreate = function() {
   var variableModelList = [];
   var name = this.getText();
   var varType = this.getVariableType();
-  console.info("name",name,varType)
+  //console.info("name",name,varType)
   var workspace = null;
   if (this.sourceBlock_) {
     workspace = this.sourceBlock_.workspace;
@@ -301,7 +301,7 @@ Blockly.FieldVariable.dropdownCreate = function() {
     // doesn't modify the workspace's list.
     for (var i = 0; i < variableTypes.length; i++) {
       var variableType = varType;//variableTypes[i];
-      console.info("variableType=",variableType);
+      //console.info("variableType=",variableType);
       var variables = workspace.getVariablesOfType(variableType);
       variableModelList = variableModelList.concat(variables);
 

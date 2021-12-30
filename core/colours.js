@@ -86,9 +86,9 @@ Blockly.Colours = {
     "tertiary": "#0B8E69"
   },
   "data_arraychar": {
-    "primary": "#FF6680",
-    "secondary": "#FF4D6A",
-    "tertiary": "#FF3355"
+    "primary": "#CF63CF",
+    "secondary": "#C94FC9",
+    "tertiary": "#BD42BD"
   },
   // This is not a new category, but rather for differentiation
   // between lists and scalar variables.

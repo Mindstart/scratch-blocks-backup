@@ -368,7 +368,7 @@ Blockly.FieldNumberArray.prototype.onHide_ = function() {
 
 Blockly.FieldNumberArray.prototype.setText = function(newText) {
  // console.info("enter settext FieldNumberArray")
-  if (newText === null ) {
+  if (newText === null || !this.isNumber(newText) ) {
     // No change if null.
     return;
   }
@@ -386,9 +386,10 @@ Blockly.FieldNumberArray.prototype.setText = function(newText) {
 };
 
 Blockly.FieldNumberArray.prototype.isNumber = function(val) {
-  var regPos = /^\d+(\.\d+)?$/; //非负浮点数
-  var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-  if(regPos.test(val) || regNeg.test(val)){
+  var regPos = /^(\d+,?)+$/;
+  //var regPos = /^\d+(\,\d+)?$/; //非负浮点数
+  //var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+  if(regPos.test(val)){
     return true;
   }else{
     return false;

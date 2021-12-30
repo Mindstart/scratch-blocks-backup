@@ -152,7 +152,7 @@ Blockly.Blocks['math_angle'] = {
     });
   }
 };
-Blockly.Blocks['array_num'] = {
+Blockly.Blocks['math_arraynum'] = {
   /**
    * Block for angle picker.
    * @this Blockly.Block
@@ -164,7 +164,30 @@ Blockly.Blocks['array_num'] = {
         {
           "type": "field_numberArray",
           "name": "NUM",
-          "value": "0"
+          "value": 0
+        }
+      ],
+      "output": "Number",
+      "outputShape": Blockly.OUTPUT_SHAPE_SQUARE,
+      "colour": Blockly.Colours.textField,
+      "colourSecondary": Blockly.Colours.textField,
+      "colourTertiary": Blockly.Colours.textField
+    });
+  }
+};
+Blockly.Blocks['math_arraychar'] = {
+  /**
+   * Block for angle picker.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TEXT",
+          "value": 0
         }
       ],
       "output": "String",

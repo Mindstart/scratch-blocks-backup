@@ -122,9 +122,9 @@ Blockly.Blocks['data_arraynumvariable'] = {
       "args0": [
         {
           "type": "field_variable_getter",
-          "text": "true",
+          "text": '0',
           "name": "ARRAY_NUM_VARIABLE",
-          "variableType": ""
+          "variableType": "str"
         }
       ],
       "category": Blockly.Categories.data,
@@ -149,9 +149,9 @@ Blockly.Blocks['data_arraycharvariable'] = {
       "args0": [
         {
           "type": "field_variable_getter",
-          "text": "true",
+          "text": "a",
           "name": "ARRAY_CHAR_VARIABLE",
-          "variableType": ""
+          "variableType": "str"
         }
       ],
       "category": Blockly.Categories.data,
@@ -648,7 +648,7 @@ Blockly.Blocks['data_itemofarraynum'] = {
         {
           "type": "field_variable",
           "name": "ARRAY_NUM_VARIABLE",
-          "variableTypes": [Blockly.ARRAY_NUM_VARIABLE_TYPE]
+          "variableTypes": [Blockly.STRING_VARIABLE_TYPE]
         }
       ],
       "output": null,
@@ -678,7 +678,7 @@ Blockly.Blocks['data_itemofarraychar'] = {
         {
           "type": "field_variable",
           "name": "ARRAY_CHAR_VARIABLE",
-          "variableTypes": [Blockly.ARRAY_CHAR_VARIABLE_TYPE]
+          "variableTypes": [Blockly.STRING_VARIABLE_TYPE]
         }
       ],
       "output": null,
@@ -752,7 +752,7 @@ Blockly.Blocks['data_lengthofarraynum'] = {
         {
           "type": "field_variable",
           "name": "ARRAY_NUM_VARIABLE",
-          "variableTypes": [Blockly.ARRAY_NUM_VARIABLE_TYPE]
+          "variableTypes": [Blockly.STRING_VARIABLE_TYPE]
         }
       ],
       "category": Blockly.Categories.data,
@@ -776,7 +776,7 @@ Blockly.Blocks['data_lengthofarraychar'] = {
         {
           "type": "field_variable",
           "name": "ARRAY_CHAR_VARIABLE",
-          "variableTypes": [Blockly.ARRAY_CHAR_VARIABLE_TYPE]
+          "variableTypes": [Blockly.STRING_VARIABLE_TYPE]
         }
       ],
       "category": Blockly.Categories.data,

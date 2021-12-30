@@ -97,10 +97,10 @@ Blockly.DataCategory = function(workspace) {
   variableModelList = workspace.getVariablesOfType(Blockly.ARRAY_NUM_VARIABLE_TYPE);
   variableModelList.sort(Blockly.VariableModel.compareByName);
  // console.info("variableModelList.length2= ",variableModelList.length)
-  for (var i = 0; i < variableModelList.length; i++) {
-    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],3);
-
-  }
+ //  for (var i = 0; i < variableModelList.length; i++) {
+ //    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],3);
+ //
+ //  }
 
   if (variableModelList.length > 0) {
     xmlList[xmlList.length - 1].setAttribute('gap', 24);
@@ -115,9 +115,9 @@ Blockly.DataCategory = function(workspace) {
   variableModelList = workspace.getVariablesOfType(Blockly.ARRAY_CHAR_VARIABLE_TYPE);
   variableModelList.sort(Blockly.VariableModel.compareByName);
  // console.info("variableModelList.length2= ",variableModelList.length)
-  for (var i = 0; i < variableModelList.length; i++) {
-    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],4);
-  }
+ //  for (var i = 0; i < variableModelList.length; i++) {
+ //    Blockly.DataCategory.addDataVariable(xmlList, variableModelList[i],4);
+ //  }
 
   if (variableModelList.length > 0) {
     xmlList[xmlList.length - 1].setAttribute('gap', 24);
@@ -204,9 +204,9 @@ Blockly.DataCategory.addSetVariableTo = function(xmlList, variable,type) {
   }else if(type == 2){
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_setbooleanvariableto', 'BOOLEAN_VARIABLE');
   }else if(type == 3){
-    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setarraynumvariableto', 'ARRAY_NUM_VARIABLE',['VALUE', 'array_num', 0]);
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setarraynumvariableto', 'ARRAY_NUM_VARIABLE',['VALUE', 'math_arraynum', 0]);
   }else if(type == 4){
-    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setarraycharvariableto', 'ARRAY_CHAR_VARIABLE',['VALUE', 'array_char', 'a']);
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_setarraycharvariableto', 'ARRAY_CHAR_VARIABLE',['VALUE', 'math_arraychar', 'a']);
   }
 };
 

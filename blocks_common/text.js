@@ -54,7 +54,7 @@ Blockly.Blocks['text'] = {
     });
   }
 };
-Blockly.Blocks['array_char'] = {
+Blockly.Blocks['text_array'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
