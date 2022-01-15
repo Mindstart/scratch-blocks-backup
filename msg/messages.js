@@ -369,7 +369,7 @@ Blockly.Msg.DELETE_ARRAY_CHAR_VARIABLE = 'Delete the "%1" char array variable';
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
 Blockly.Msg.NEW_PROCEDURE = 'Make a Block';
 Blockly.Msg.PROCEDURE_ALREADY_EXISTS = 'A procedure named "%1" already exists.';
-Blockly.Msg.PROCEDURE_DEFAULT_NAME = 'block name';
+Blockly.Msg.PROCEDURE_DEFAULT_NAME = 'myBlock';
 
 // Lists
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
