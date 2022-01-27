@@ -693,7 +693,7 @@ Blockly.ScratchBlocks.ProcedureUtils.addStringExternal = function() {
   Blockly.WidgetDiv.hide(true);
   this.procCode_ =  this.procCode_.replace(/"/g, "");
   this.procCode_ = this.procCode_ + ' %s';
-  this.displayNames_.push('text');
+  this.displayNames_.push('string');
   this.argumentIds_.push(Blockly.utils.genUid());
   this.argumentDefaults_.push('');
   this.updateDisplay_();
@@ -707,6 +707,7 @@ Blockly.ScratchBlocks.ProcedureUtils.addStringExternal = function() {
  */
  Blockly.ScratchBlocks.ProcedureUtils.addNumberExternal = function() {
   Blockly.WidgetDiv.hide(true);
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
   this.procCode_ = this.procCode_ + ' %n';
   this.displayNames_.push('number');
   this.argumentIds_.push(Blockly.utils.genUid());
