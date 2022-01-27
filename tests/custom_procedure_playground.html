@@ -44,7 +44,9 @@
     <tr>
       <td></td>
       <td id="editor-actions">
-        <button id="text_number" onclick="addTextNumber()">Add text/number input</button>
+        <!-- <button id="text_number" onclick="addTextNumber()">Add text/number input</button> -->
+        <button id="text" onclick="addText()">Add text input</button>
+        <button id="number" onclick="addNumber()">Add number input</button>
         <button id="boolean" onclick="addBoolean()">Add boolean input</button>
         <button id="label" onclick="addLabel()">Add label</button>
         <button id="cancelButton" onclick="cancel()">cancel</button>
@@ -200,8 +202,16 @@
       mutationRoot.addBooleanExternal();
     }
 
-    function addTextNumber() {
-      mutationRoot.addStringNumberExternal();
+    // function addTextNumber() {
+    //   mutationRoot.addStringNumberExternal();
+    // }
+
+    function addText() {
+      mutationRoot.addStringExternal();
+    }
+
+    function addNumber() {
+      mutationRoot.addNumberExternal();
     }
 
     function removeRandomInput() {
@@ -212,15 +222,18 @@
     }
 
     function addRandomInput() {
-      var rnd = Math.floor(Math.random() * 3);
+      var rnd = Math.floor(Math.random() * 4);
       switch (rnd) {
         case 0:
-          addTextNumber();
+          addText();
           break;
         case 1:
+          addNumber();
+          break;          
+        case 2:
           addLabel();
           break;
-        case 2:
+        case 3:
           addBoolean();
           break;
       }
