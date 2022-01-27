@@ -381,7 +381,7 @@ Blockly.Procedures.newProcedureMutation = function() {
       ' warp="false">' +
       '</mutation>' +
       '</xml>';
-  console.info("text=",mutationText)
+  //console.info("text=",mutationText)
  // mutationText = mutationText.replace("\"\"","\"");
   //console.info("text=",mutationText)
   return Blockly.Xml.textToDom(mutationText).firstChild;

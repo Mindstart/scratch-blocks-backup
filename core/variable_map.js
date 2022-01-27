@@ -354,7 +354,7 @@ Blockly.VariableMap.prototype.getVariableById = function(id) {
 Blockly.VariableMap.prototype.getVariablesOfType = function(type) {
   //console.info("getVariablesOfType type",type.toString())
   type = type || '' ;
-  console.info("getVariablesOfType type",type)
+  //console.info("getVariablesOfType type",type)
   var variable_list = this.variableMap_[type];
   if (variable_list) {
     return variable_list.slice();

@@ -39,7 +39,9 @@ goog.require('Blockly.ScratchBlocks.VerticalExtensions');
  * @this Blockly.Block
  */
 Blockly.ScratchBlocks.ProcedureUtils.callerMutationToDom = function() {
+  //console.info("enter getproccode 0",this.procCode_)
   var container = document.createElement('mutation');
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
   container.setAttribute('proccode', this.procCode_);
   container.setAttribute('argumentids', JSON.stringify(this.argumentIds_));
   container.setAttribute('warp', JSON.stringify(this.warp_));
@@ -54,6 +56,7 @@ Blockly.ScratchBlocks.ProcedureUtils.callerMutationToDom = function() {
  */
 Blockly.ScratchBlocks.ProcedureUtils.callerDomToMutation = function(xmlElement) {
   this.procCode_ = xmlElement.getAttribute('proccode');
+  //console.info("enter getproccode 1",this.procCode_)
   this.generateShadows_ =
       JSON.parse(xmlElement.getAttribute('generateshadows'));
   this.argumentIds_ = JSON.parse(xmlElement.getAttribute('argumentids'));
@@ -76,7 +79,9 @@ Blockly.ScratchBlocks.ProcedureUtils.definitionMutationToDom = function(
   if (opt_generateShadows) {
     container.setAttribute('generateshadows', true);
   }
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
   container.setAttribute('proccode', this.procCode_);
+  //console.info("enter getproccode 2",JSON.stringify(this.argumentDefaults_))
   container.setAttribute('argumentids', JSON.stringify(this.argumentIds_));
   container.setAttribute('argumentnames', JSON.stringify(this.displayNames_));
   container.setAttribute('argumentdefaults',
@@ -92,7 +97,11 @@ Blockly.ScratchBlocks.ProcedureUtils.definitionMutationToDom = function(
  * @this Blockly.Block
  */
 Blockly.ScratchBlocks.ProcedureUtils.definitionDomToMutation = function(xmlElement) {
+
   this.procCode_ = xmlElement.getAttribute('proccode');
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
+
+  var container = document.createElement('mutation');
   this.warp_ = JSON.parse(xmlElement.getAttribute('warp'));
 
   var prevArgIds = this.argumentIds_;
@@ -102,6 +111,7 @@ Blockly.ScratchBlocks.ProcedureUtils.definitionDomToMutation = function(xmlEleme
   this.displayNames_ = JSON.parse(xmlElement.getAttribute('argumentnames'));
   this.argumentDefaults_ = JSON.parse(
       xmlElement.getAttribute('argumentdefaults'));
+  //console.info("enter getproccode 3",this.argumentDefaults_)
   this.updateDisplay_();
   if (this.updateArgumentReporterNames_) {
     this.updateArgumentReporterNames_(prevArgIds, prevDisplayNames);
@@ -119,6 +129,7 @@ Blockly.ScratchBlocks.ProcedureUtils.definitionDomToMutation = function(xmlEleme
  * @this Blockly.Block
  */
 Blockly.ScratchBlocks.ProcedureUtils.getProcCode = function() {
+  //console.info("enter getproccode",this.procCode_)
   return this.procCode_;
 };
 
@@ -490,7 +501,8 @@ Blockly.ScratchBlocks.ProcedureUtils.populateArgumentOnDeclaration_ = function(
   // Decide which block to attach.
   if (oldBlock && oldTypeMatches) {
     var argumentEditor = oldBlock;
-    oldBlock.setFieldValue(displayName, 'TEXT');
+    var value = displayName.replace(/"/g, "");
+    oldBlock.setFieldValue(value, 'TEXT');
     connectionMap[input.name] = null;
   } else {
     var argumentEditor = this.createArgumentEditor_(type, displayName);
@@ -543,7 +555,8 @@ Blockly.ScratchBlocks.ProcedureUtils.createArgumentEditor_ = function(
     } else {
       var newBlock = this.workspace.newBlock('argument_editor_boolean');
     }
-    newBlock.setFieldValue(displayName, 'TEXT');
+    var value = displayName.replace(/"/g, "");
+    newBlock.setFieldValue(value, 'TEXT');
     newBlock.setShadow(true);
     if (!this.isInsertionMarker()) {
       newBlock.initSvg();
@@ -576,7 +589,9 @@ Blockly.ScratchBlocks.ProcedureUtils.updateDeclarationProcCode_ = function() {
     } else if (input.type == Blockly.INPUT_VALUE) {
       // Inspect the argument editor.
       var target = input.connection.targetBlock();
-      this.displayNames_.push(target.getFieldValue('TEXT'));
+
+      var value = target.getFieldValue('TEXT').replace(/"/g, "");
+      this.displayNames_.push(value);
       this.argumentIds_.push(input.name);
       if (target.type == 'argument_editor_boolean') {
         this.procCode_ += '%b';
@@ -613,6 +628,7 @@ Blockly.ScratchBlocks.ProcedureUtils.focusLastEditor_ = function() {
  */
 Blockly.ScratchBlocks.ProcedureUtils.addLabelExternal = function() {
   Blockly.WidgetDiv.hide(true);
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
   this.procCode_ = this.procCode_ + ' label text';
   this.updateDisplay_();
   this.focusLastEditor_();
@@ -625,8 +641,9 @@ Blockly.ScratchBlocks.ProcedureUtils.addLabelExternal = function() {
  */
 Blockly.ScratchBlocks.ProcedureUtils.addBooleanExternal = function() {
   Blockly.WidgetDiv.hide(true);
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
   this.procCode_ = this.procCode_ + ' %b';
-  this.displayNames_.push('boolean');
+  this.displayNames_.push('bool');
   this.argumentIds_.push(Blockly.utils.genUid());
   this.argumentDefaults_.push('false');
   this.updateDisplay_();
@@ -638,12 +655,24 @@ Blockly.ScratchBlocks.ProcedureUtils.addBooleanExternal = function() {
  * declaration.
  * @public
  */
-Blockly.ScratchBlocks.ProcedureUtils.addStringNumberExternal = function() {
+Blockly.ScratchBlocks.ProcedureUtils.addStringExternal = function() {
   Blockly.WidgetDiv.hide(true);
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
   this.procCode_ = this.procCode_ + ' %s';
-  this.displayNames_.push('number or text');
+  this.displayNames_.push('string');
   this.argumentIds_.push(Blockly.utils.genUid());
-  this.argumentDefaults_.push('');
+  this.argumentDefaults_.push(' ');
+  this.updateDisplay_();
+  this.focusLastEditor_();
+};
+
+Blockly.ScratchBlocks.ProcedureUtils.addNumberExternal = function() {
+  Blockly.WidgetDiv.hide(true);
+  this.procCode_ =  this.procCode_.replace(/"/g, "");
+  this.procCode_ = this.procCode_ + ' %s';
+  this.displayNames_.push('float');
+  this.argumentIds_.push(Blockly.utils.genUid());
+  this.argumentDefaults_.push(0);
   this.updateDisplay_();
   this.focusLastEditor_();
 };
@@ -896,7 +925,8 @@ Blockly.Blocks['procedures_declaration'] = {
   setWarp: Blockly.ScratchBlocks.ProcedureUtils.setWarp,
   addLabelExternal: Blockly.ScratchBlocks.ProcedureUtils.addLabelExternal,
   addBooleanExternal: Blockly.ScratchBlocks.ProcedureUtils.addBooleanExternal,
-  addStringNumberExternal: Blockly.ScratchBlocks.ProcedureUtils.addStringNumberExternal,
+  addStringExternal: Blockly.ScratchBlocks.ProcedureUtils.addStringExternal,
+  addNumberExternal: Blockly.ScratchBlocks.ProcedureUtils.addNumberExternal,
   onChangeFn: Blockly.ScratchBlocks.ProcedureUtils.updateDeclarationProcCode_
 };
 

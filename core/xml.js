@@ -859,7 +859,7 @@ Blockly.Xml.domToFieldVariable_ = function(workspace, xml, text, field) {
     variable = Blockly.Variables.getOrCreateVariablePackage(workspace, xml.id,
         text, type);
   }
-  console.info("type=",type,'variable.type=',variable.type)
+  //console.info("type=",type,'variable.type=',variable.type)
   // This should never happen :)
   // if (type != null && type !== variable.type) {
   //   throw Error('Serialized variable type with id \'' +

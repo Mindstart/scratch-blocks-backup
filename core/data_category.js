@@ -74,7 +74,7 @@ Blockly.DataCategory = function(workspace) {
     xmlList[xmlList.length - 1].setAttribute('gap', 24);
     var firstVariable = variableModelList[0];
     Blockly.DataCategory.addSetVariableTo(xmlList, firstVariable,1);
-    //Blockly.DataCategory.addChangeVariableBy(xmlList, firstVariable,1);
+   // Blockly.DataCategory.compareVariableBy(xmlList, firstVariable,1);
   }
 
   // Now add boolean variables to the flyout
@@ -232,6 +232,11 @@ Blockly.DataCategory.addChangeVariableBy = function(xmlList, variable,type) {
   else
     Blockly.DataCategory.addBlock(xmlList, variable, 'data_changevariableby',
       'STR_VARIABLE', ['VALUE', 'text', 'hello']);
+};
+Blockly.DataCategory.compareVariableBy = function(xmlList, variable,type) {
+
+    Blockly.DataCategory.addBlock(xmlList, variable, 'data_comparevariableby',
+      'STR_VARIABLE', ['VALUE', 'text', 'a'],['VALUE', 'text', 'b']);
 };
 Blockly.DataCategory.addToggleVariableBy = function(xmlList, variable,type) {
 

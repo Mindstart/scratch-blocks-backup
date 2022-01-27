@@ -326,6 +326,35 @@ Blockly.Blocks['data_changevariableby'] = {
   }
 };
 
+Blockly.Blocks['data_comparevariableby'] = {
+  /**
+   * Block to compare variable by a certain value
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.DATA_CHANGEVARIABLEBY,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "VARIABLE"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE2"
+        },
+
+      ],
+      "category": Blockly.Categories.data,
+      "extensions": ["colours_data", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['data_togglevariableby'] = {
   /**
    * Block to change variable by a certain value
