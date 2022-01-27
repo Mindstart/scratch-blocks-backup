@@ -341,7 +341,7 @@ Blockly.ScratchBlocks.ProcedureUtils.attachShadow_ = function(input,
       if (argumentType == 'n') {
         newBlock.setFieldValue('1', 'NUM');
       } else {
-        newBlock.setFieldValue('', 'TEXT');
+        newBlock.setFieldValue(' ', 'TEXT');
       }
       newBlock.setShadow(true);
       if (!this.isInsertionMarker()) {
@@ -709,7 +709,7 @@ Blockly.ScratchBlocks.ProcedureUtils.addStringExternal = function() {
   Blockly.WidgetDiv.hide(true);
   this.procCode_ =  this.procCode_.replace(/"/g, "");
   this.procCode_ = this.procCode_ + ' %n';
-  this.displayNames_.push('number');
+  this.displayNames_.push('float');
   this.argumentIds_.push(Blockly.utils.genUid());
   this.argumentDefaults_.push(0);
   this.updateDisplay_();
