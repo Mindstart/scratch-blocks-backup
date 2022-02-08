@@ -101,5 +101,24 @@ Blockly.FieldTextInputRemovable.fromJson = function(options) {
   return field;
 };
 
+Blockly.FieldTextInputRemovable.prototype.setText = function(newText) {
+  //console.info("enter settext FieldNumber")
+  if (newText === null) {
+    // No change if null.
+    return;
+  }
+  newText = String(newText);
+  if (newText === this.text_ ) {
+    // No change.
+    return;
+  }
+  //newText = '"'+ newText.substring(0,this.maxInputLength) + '"';
+  if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
+    Blockly.Events.fire(new Blockly.Events.BlockChange(
+      this.sourceBlock_, 'field', this.name, this.text_, newText));
+  }
+  Blockly.Field.prototype.setText.call(this, newText);
+};
+
 Blockly.Field.register(
     'field_input_removable', Blockly.FieldTextInputRemovable);
