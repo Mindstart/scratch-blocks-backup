@@ -522,7 +522,7 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
   '</category>' +
   '<category name="%{BKY_CATEGORY_MYBLOCKS}" id="more" colour="#D65CD6" secondaryColour="#BD42BD" custom="PROCEDURE">' +
   '</category>' +
-  '<category name="Extensions" id="extensions" colour="#FF6680" secondaryColour="#FF4D6A" ' +
+  '<category name="Extensions" id="extensions" colour="#FFBF00" secondaryColour="#E6AC00" ' +
     'iconURI="../media/extensions/wedo2-block-icon.svg" showStatusButton="true">' +
     '<block type="extension_pen_down" id="extension_pen_down"></block>' +
     '<block type="extension_music_drum" id="extension_music_drum">' +

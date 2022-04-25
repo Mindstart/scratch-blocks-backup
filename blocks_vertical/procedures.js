@@ -850,7 +850,7 @@ Blockly.Blocks['procedures_definition'] = {
           "name": "custom_block"
         }
       ],
-      "extensions": ["colours_sounds", "shape_hat", "procedure_def_contextmenu"]
+      "extensions": ["colours_more", "shape_hat", "procedure_def_contextmenu"]
     });
   }
 };
@@ -862,7 +862,7 @@ Blockly.Blocks['procedures_call'] = {
    */
   init: function() {
     this.jsonInit({
-      "extensions": ["colours_sounds", "shape_statement", "procedure_call_contextmenu"]
+      "extensions": ["colours_more", "shape_statement", "procedure_call_contextmenu"]
     });
     this.procCode_ = '';
     this.argumentIds_ = [];
@@ -895,7 +895,7 @@ Blockly.Blocks['procedures_prototype'] = {
    */
   init: function() {
     this.jsonInit({
-      "extensions": ["colours_sounds", "shape_statement"]
+      "extensions": ["colours_more", "shape_statement"]
     });
 
     /* Data known about the procedure. */
@@ -931,7 +931,7 @@ Blockly.Blocks['procedures_declaration'] = {
    */
   init: function() {
     this.jsonInit({
-      "extensions": ["colours_sounds", "shape_statement"]
+      "extensions": ["colours_more", "shape_statement"]
     });
     /* Data known about the procedure. */
     this.procCode_ = '';
@@ -981,7 +981,7 @@ Blockly.Blocks['argument_reporter_boolean'] = {
           "text": ""
         }
       ],
-      "extensions": ["colours_sounds", "output_boolean"]
+      "extensions": ["colours_more", "output_boolean"]
     });
   }
 };
@@ -996,7 +996,7 @@ Blockly.Blocks['argument_reporter_boolean'] = {
 //           "text": ""
 //         }
 //       ],
-//       "extensions": ["colours_sounds", "output_number", "output_string"]
+//       "extensions": ["colours_more", "output_number", "output_string"]
 //     });
 //   }
 // };
@@ -1011,7 +1011,7 @@ Blockly.Blocks['argument_reporter_string'] = {
           "text": ""
         }
       ],
-      "extensions": ["colours_sounds", "output_string"]
+      "extensions": ["colours_more", "output_string"]
     });
   }
 };
@@ -1026,7 +1026,7 @@ Blockly.Blocks['argument_reporter_number'] = {
           "text": ""
         }
       ],
-      "extensions": ["colours_sounds", "output_number"]
+      "extensions": ["colours_more", "output_number"]
     });
   }
 };

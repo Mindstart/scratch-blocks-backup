@@ -46,8 +46,8 @@ Blockly.Colours = {
     "tertiary": "#CF8B17"
   },
   "event": {
-    "primary": "#FFBF00",
-    "secondary": "#E6AC00",
+    "primary": "#FFCF00",
+    "secondary": "#E7AC00",
     "tertiary": "#CC9900"
   },
   "sensing": {
